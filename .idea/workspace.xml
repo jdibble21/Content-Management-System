@@ -1,7 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e394aa6-5183-4645-a76e-f9bf829a5350" name="Default Changelist" comment="" />
+    <list default="true" id="7e394aa6-5183-4645-a76e-f9bf829a5350" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/php/classes/BlockHandler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/classes/ContentManagementLogic.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/classes/ContentManagementLogic.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,17 +61,30 @@
       <updated>1613615330861</updated>
       <workItem from="1613615331983" duration="2405000" />
       <workItem from="1613671226396" duration="603000" />
+      <workItem from="1613673692008" duration="2355000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="WindowStateProjectService">
-    <state x="467" y="203" key="NewPhpClassDialog" timestamp="1613617037211">
-      <screen x="0" y="0" width="1500" height="960" />
+    <state x="797" y="220" key="NewPhpClassDialog" timestamp="1613678792676">
+      <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="467" y="203" key="NewPhpClassDialog/0.0.1500.960@0.0.1500.960" timestamp="1613617037211" />
+    <state x="797" y="220" key="NewPhpClassDialog/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1613678792676" />
     <state x="585" y="404" key="NewPhpFileDialog" timestamp="1613615723482">
       <screen x="0" y="0" width="1500" height="960" />
     </state>
