@@ -19,10 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e394aa6-5183-4645-a76e-f9bf829a5350" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/php/classes/BlockHandler.php" afterDir="false" />
+    <list default="true" id="7e394aa6-5183-4645-a76e-f9bf829a5350" name="Default Changelist" comment="Add Blacklist functions in class">
+      <change afterPath="$PROJECT_DIR$/js/cmsAjaxFunctions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/classes/ContentManagementLogic.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/classes/ContentManagementLogic.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +61,17 @@
       <workItem from="1613615331983" duration="2405000" />
       <workItem from="1613671226396" duration="603000" />
       <workItem from="1613673692008" duration="2355000" />
+      <workItem from="1613671226396" duration="653000" />
+      <workItem from="1614095800048" duration="678000" />
     </task>
+    <task id="LOCAL-00001" summary="Initial Commit">
+      <created>1613672134486</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1613672134486</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -78,6 +87,12 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial Commit" />
+    <MESSAGE value="Add Blacklist functions in class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Blacklist functions in class" />
   </component>
   <component name="WindowStateProjectService">
     <state x="797" y="220" key="NewPhpClassDialog" timestamp="1613678792676">
@@ -89,5 +104,9 @@
       <screen x="0" y="0" width="1500" height="960" />
     </state>
     <state x="585" y="404" key="NewPhpFileDialog/0.0.1500.960@0.0.1500.960" timestamp="1613615723482" />
+    <state x="343" y="213" key="Vcs.Push.Dialog.v2" timestamp="1614096844474">
+      <screen x="0" y="0" width="1500" height="960" />
+    </state>
+    <state x="343" y="213" key="Vcs.Push.Dialog.v2/0.0.1500.960@0.0.1500.960" timestamp="1614096844474" />
   </component>
 </project>
