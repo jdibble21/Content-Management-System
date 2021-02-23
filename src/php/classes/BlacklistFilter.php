@@ -1,13 +1,5 @@
 <?php
 
-class BlacklistFilter
-{
-
-
-    function __construct() {
-
-    }
-
     function getWhitelist(){
 
     }
@@ -16,7 +8,7 @@ class BlacklistFilter
 
     }
 
-    function checkForProfanityInWord($UserInput){
+    function checkForProfanityInString($UserInput){
         $input_array = explode(" ",$UserInput);
         $isClean = True;
 
@@ -26,10 +18,10 @@ class BlacklistFilter
             if(preg_match($pattern, $formatted_word)) {
                 $isClean = False;
             }
-            if($this->checkBlacklist($formatted_word) == False){
+            if(checkBlacklist($formatted_word) == False){
                 $isClean = False;
             }
-            if($this->checkWhitelist($formatted_word) == True){
+            if(checkWhitelist($formatted_word) == True){
                 $isClean = True;
             }
         }
@@ -71,4 +63,3 @@ class BlacklistFilter
     function removeFromWhiteList($userInput) {
 
     }
-}

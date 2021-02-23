@@ -19,9 +19,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e394aa6-5183-4645-a76e-f9bf829a5350" name="Default Changelist" comment="Add Blacklist functions in class">
-      <change afterPath="$PROJECT_DIR$/js/cmsAjaxFunctions.js" afterDir="false" />
+    <list default="true" id="7e394aa6-5183-4645-a76e-f9bf829a5350" name="Default Changelist" comment="Add necessary js and sql files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/CMS.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/CMS.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/cmsAjaxFunctions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/cmsAjaxFunctions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/adminControls/allowPost.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/adminControls/allowPost.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/classes/BlacklistFilter.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/classes/BlacklistFilter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/classes/BlockHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/classes/BlockHandler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/classes/ContentManagementLogic.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/classes/ContentManagementLogic.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/classes/FilterDataLayer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/classes/FilterDataLayer.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +53,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jdtar\PhpstormProjects\Content-Management-System\src" />
       <recent name="C:\Users\jdtar\PhpstormProjects\Content-Management-System\php" />
     </key>
   </component>
@@ -71,7 +78,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613672134486</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Add necessary js and sql files">
+      <created>1614097803306</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1614097803306</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -92,7 +106,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial Commit" />
     <MESSAGE value="Add Blacklist functions in class" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Blacklist functions in class" />
+    <MESSAGE value="Add necessary js and sql files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add necessary js and sql files" />
   </component>
   <component name="WindowStateProjectService">
     <state x="797" y="220" key="NewPhpClassDialog" timestamp="1613678792676">

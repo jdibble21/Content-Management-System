@@ -3,14 +3,35 @@
 
 class ContentManagementLogic
 {
+    private $dl;
+
+    public function __construct(){
+        $this->dl = new FilterDataLayer();
+    }
+
+
+    //implementation methods
+    public function checkInputForProfanity($input){
+
+    }
+
+    public function appealBlock($postID, $appealMessage){
+
+    }
+
+    public function viewBlockQueue(){
+
+    }
+    public function viewResolvedMessagesInHTMLTable(){
+
+    }
+
     //admin tools
     function getRecentBlockMessage(){
         return $this->dl->getRecentBlockMessage();
 
     }
-    function appealBlock($postID, $appealMessage){
-        $this->dl->updateBlockedMessageAppeal([0, $appealMessage, $postID]);
-    }
+
 
     function saveDeletedPost($userID,$postID,$content,$image){
         $this->dl->insertDeletedPost([$userID,$postID,$content,$image]);
