@@ -1,5 +1,5 @@
 <?php
-
+require_once ("src\php\classes\FilterDataLayer.php");
 
 class ContentManagementLogic
 {
@@ -19,8 +19,13 @@ class ContentManagementLogic
 
     }
 
-    public function displayPosts($posts){
-        $taggedPosts = $this->checkBlockedPosts($posts);
+    /**
+     * Remove posts marked as blocked using object array received
+     * from host database
+     * @param $posts
+     */
+    public function removeBlockedPosts($posts){
+        return $this->checkBlockedPosts($posts);
     }
 
     public function viewBlockQueue(){
@@ -108,7 +113,26 @@ class ContentManagementLogic
 
     //posts
     function checkBlockedPosts($standardPostsObject){
+        $modifiedArray = [];
         $blockedPostArray = $this->getBlockPosts();
-        //append blocked value to end of each array
+        foreach ($standardPostsObject as $post){
+            $blockValue = $this->getArrayValue($post['postID'],$blockedPostArray);
+            $modifiedPost = $this->appendBlockValue($post,$blockValue);
+            array_push($modifiedArray,$modifiedPost);
+        }
+        return $modifiedArray;
+    }
+    function getArrayValue($postIDToGet,$objectArray){
+        foreach($objectArray as $object){
+            if($postIDToGet == $object['postID']){
+                return $object['blockStatus'];
+            }
+        }
+        return null;
+    }
+
+    protected function appendBlockValue($post,$value){
+        array_push($post,$value);
+        return $post;
     }
 }

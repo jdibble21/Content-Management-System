@@ -8,7 +8,7 @@ class FilterDataLayer
     public function __construct(){
         $hostname = 'localhost';
         $port = 3306;
-        $dbName = 'cmsData';
+        $dbName = 'cmsdata';
         $dbUsername = 'root';
         $dbPass = '';
         //change mysql to database type
@@ -30,7 +30,7 @@ class FilterDataLayer
     }
     //select
     function getBlockedPosts(){
-        $query = $this->conn->prepare("select * from blockedposts");
+        $query = $this->conn->prepare("select * from `'blockedposts`");
         $query->execute();
         return $query->fetchAll();
     }
