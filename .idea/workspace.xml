@@ -19,15 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e394aa6-5183-4645-a76e-f9bf829a5350" name="Default Changelist" comment="Add necessary js and sql files">
+    <list default="true" id="7e394aa6-5183-4645-a76e-f9bf829a5350" name="Default Changelist" comment="Add functions, create userguide.md">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/CMS.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/CMS.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/cmsAjaxFunctions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/cmsAjaxFunctions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/adminControls/allowPost.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/adminControls/allowPost.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/classes/BlacklistFilter.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/classes/BlacklistFilter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/classes/BlockHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/classes/BlockHandler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/classes/ContentManagementLogic.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/classes/ContentManagementLogic.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/classes/FilterDataLayer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/classes/FilterDataLayer.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +63,8 @@
       <workItem from="1613673692008" duration="2355000" />
       <workItem from="1613671226396" duration="653000" />
       <workItem from="1614095800048" duration="678000" />
+      <workItem from="1614135557399" duration="14000" />
+      <workItem from="1614138617223" duration="1015000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1613672134486</created>
@@ -85,7 +80,21 @@
       <option name="project" value="LOCAL" />
       <updated>1614097803306</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Move files and add logic and datalayer functions">
+      <created>1614104588171</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1614104588171</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Add functions, create userguide.md">
+      <created>1614139000087</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1614139000087</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -107,9 +116,19 @@
     <MESSAGE value="Initial Commit" />
     <MESSAGE value="Add Blacklist functions in class" />
     <MESSAGE value="Add necessary js and sql files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add necessary js and sql files" />
+    <MESSAGE value="Move files and add logic and datalayer functions" />
+    <MESSAGE value="Add functions, create userguide.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add functions, create userguide.md" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="162" y="322" key="#SQL_Dialects" timestamp="1614105063818">
+      <screen x="0" y="0" width="1500" height="960" />
+    </state>
+    <state x="162" y="322" key="#SQL_Dialects/0.0.1500.960@0.0.1500.960" timestamp="1614105063818" />
+    <state x="343" y="139" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1614105069340">
+      <screen x="0" y="0" width="1500" height="960" />
+    </state>
+    <state x="343" y="139" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1500.960@0.0.1500.960" timestamp="1614105069340" />
     <state x="797" y="220" key="NewPhpClassDialog" timestamp="1613678792676">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
@@ -119,9 +138,9 @@
       <screen x="0" y="0" width="1500" height="960" />
     </state>
     <state x="585" y="404" key="NewPhpFileDialog/0.0.1500.960@0.0.1500.960" timestamp="1613615723482" />
-    <state x="343" y="213" key="Vcs.Push.Dialog.v2" timestamp="1614096844474">
+    <state x="343" y="213" key="Vcs.Push.Dialog.v2" timestamp="1614141168354">
       <screen x="0" y="0" width="1500" height="960" />
     </state>
-    <state x="343" y="213" key="Vcs.Push.Dialog.v2/0.0.1500.960@0.0.1500.960" timestamp="1614096844474" />
+    <state x="343" y="213" key="Vcs.Push.Dialog.v2/0.0.1500.960@0.0.1500.960" timestamp="1614141168354" />
   </component>
 </project>
