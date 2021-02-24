@@ -24,8 +24,14 @@ class FilterDataLayer
             throw new PDOException($e->getMessage(), (int)$e->getCode());
         }
     }
-
+    //insert
     function insertBlockMessage(){
 
+    }
+    //select
+    function getBlockedPosts(){
+        $query = $this->conn->prepare("select * from blockedposts");
+        $query->execute();
+        return $query->fetchAll();
     }
 }

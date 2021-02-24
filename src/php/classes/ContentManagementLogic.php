@@ -19,6 +19,10 @@ class ContentManagementLogic
 
     }
 
+    public function displayPosts($posts){
+        $taggedPosts = $this->checkBlockedPosts($posts);
+    }
+
     public function viewBlockQueue(){
 
     }
@@ -95,4 +99,16 @@ class ContentManagementLogic
     }
 
     //blocking
+    function createBlockMessage($postID,$blockReason){
+        $resolution = "No resolution yet";
+    }
+    function getBlockPosts(){
+        return $this->dl->getBlockedPosts();
+    }
+
+    //posts
+    function checkBlockedPosts($standardPostsObject){
+        $blockedPostArray = $this->getBlockPosts();
+        //append blocked value to end of each array
+    }
 }
