@@ -22,6 +22,11 @@ class contentManagementFilterTest extends TestCase{
 
 
         $blockedPosts = $this->cms->removeBlockedPosts($postArray);
-        print_r($blockedPosts);
+        $this->assertEquals("1",$blockedPosts[0]['blockStatus']);
+    }
+
+    public function testCheckForBasicProfanity(){
+        $testDetect = $this->cms->checkInputForProfanity('fuck this word');
+        $this->assertEquals(False,$testDetect);
     }
 }

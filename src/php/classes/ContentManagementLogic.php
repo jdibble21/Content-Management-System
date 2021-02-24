@@ -1,19 +1,28 @@
 <?php
 require_once ("src\php\classes\FilterDataLayer.php");
+require_once ("src\php\classes\TextFilter.php");
 
 class ContentManagementLogic
 {
     private $dl;
+    private $tf;
 
     public function __construct(){
         $this->dl = new FilterDataLayer();
+        $this->tf = new TextFilter();
     }
 
 
     //exposed functions to library user
     //------------------------------------------------------------------------------------------------------------------
+    /**
+     * Scan string of input for profanity. 'words' to check determined
+     * by space between characters
+     * @param $input
+     *
+     */
     public function checkInputForProfanity($input){
-
+        return $this->tf->checkForProfanityInWords($input);
     }
 
     public function appealBlock($postID, $appealMessage){
@@ -27,6 +36,7 @@ class ContentManagementLogic
      * Recommended use: before displaying posts, using object directly
      * fetched from database
      * @param $posts
+     * @return array
      */
     public function removeBlockedPosts($posts){
         $tagged_posts = $this->checkBlockedPosts($posts);
@@ -127,7 +137,7 @@ class ContentManagementLogic
     }
 
     //posts
-    function checkBlockedPosts($standardPostsObject){
+    protected function checkBlockedPosts($standardPostsObject){
         $modifiedArray = [];
         $blockedPostArray = $this->getBlockPosts();
         foreach ($standardPostsObject as $post){
@@ -137,7 +147,7 @@ class ContentManagementLogic
         }
         return $modifiedArray;
     }
-    function getArrayValue($postIDToGet,$objectArray){
+    protected function getArrayValue($postIDToGet,$objectArray){
         foreach($objectArray as $object){
             if($postIDToGet == $object['postID']){
                 return $object['blockStatus'];

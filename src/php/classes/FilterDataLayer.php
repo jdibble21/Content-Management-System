@@ -34,4 +34,14 @@ class FilterDataLayer
         $query->execute();
         return $query->fetchAll();
     }
+    function getWhitelist(){
+        $query = $this->conn->prepare("select * from `whitelist`");
+        $query->execute();
+        return $query->fetchAll();
+    }
+    function getBlacklist(){
+        $query = $this->conn->prepare("select * from `blacklist`");
+        $query->execute();
+        return $query->fetchAll();
+    }
 }

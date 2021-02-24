@@ -1,22 +1,22 @@
 <?php
-
-class BlacklistFilter
+require_once ("src\php\classes\FilterDataLayer.php");
+class TextFilter
 {
+    private $dl;
 
-
-    function __construct() {
-
+    public function __construct(){
+        $this->dl = new FilterDataLayer();
     }
 
     function getWhitelist(){
-
+        return $this->dl->getWhitelist();
     }
 
     function getBlacklist(){
-
+        return $this->dl->getBlacklist();
     }
 
-    function checkForProfanityInWord($UserInput){
+    function checkForProfanityInWords($UserInput){
         $input_array = explode(" ",$UserInput);
         $isClean = True;
 
