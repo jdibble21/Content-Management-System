@@ -10,7 +10,8 @@ class ContentManagementLogic
     }
 
 
-    //implementation methods
+    //exposed functions to library user
+    //------------------------------------------------------------------------------------------------------------------
     public function checkInputForProfanity($input){
 
     }
@@ -21,11 +22,23 @@ class ContentManagementLogic
 
     /**
      * Remove posts marked as blocked using object array received
-     * from host database
+     * from host database.
+     *
+     * Recommended use: before displaying posts, using object directly
+     * fetched from database
      * @param $posts
      */
     public function removeBlockedPosts($posts){
-        return $this->checkBlockedPosts($posts);
+        $tagged_posts = $this->checkBlockedPosts($posts);
+        $counter = 0;
+        foreach($tagged_posts as $post){
+            // if post contains blocked 'true' value, remove from posts
+            if($post['blockStatus'] == "0"){
+                unset($tagged_posts[$counter]);
+            }
+            $counter++;
+        }
+        return $tagged_posts;
     }
 
     public function viewBlockQueue(){
@@ -34,6 +47,8 @@ class ContentManagementLogic
     public function viewResolvedMessagesInHTMLTable(){
 
     }
+    // end exposed functions
+    //-----------------------------------------------------------------------------------------------------------------
 
     //admin tools
     function getRecentBlockMessage(){
@@ -132,7 +147,7 @@ class ContentManagementLogic
     }
 
     protected function appendBlockValue($post,$value){
-        array_push($post,$value);
+        $post['blockStatus'] = $value;
         return $post;
     }
 }

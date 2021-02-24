@@ -19,7 +19,6 @@ class contentManagementFilterTest extends TestCase{
         $values1 = ['0','some post text','no image','2020-02-21','2020-03-12'];
         $values2 = ['2','some cool text','no image','2010-02-21','2019-03-12'];
         $postArray = [array_combine($keys,$values1),array_combine($keys,$values2)];
-        //print_r($postArray);
 
 
         $blockedPosts = $this->cms->removeBlockedPosts($postArray);
