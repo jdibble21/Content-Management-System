@@ -33,6 +33,7 @@ class TextFilter
                 $isClean = True;
             }
         }
+
         return $isClean;
     }
 
@@ -55,6 +56,7 @@ class TextFilter
         }
         return True;
     }
+
 
     function addToBlacklist($userInput) {
 

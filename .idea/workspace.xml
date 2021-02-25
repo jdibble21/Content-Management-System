@@ -19,12 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e394aa6-5183-4645-a76e-f9bf829a5350" name="Default Changelist" comment="Clean up removal function">
+    <list default="true" id="7e394aa6-5183-4645-a76e-f9bf829a5350" name="Default Changelist" comment="Implement text filter with blacklist/whitelist">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/db/CMS.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/CMS.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/classes/BlacklistFilter.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/classes/TextFilter.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/php/classes/ContentManagementLogic.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/classes/ContentManagementLogic.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/php/classes/FilterDataLayer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/classes/FilterDataLayer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/classes/TextFilter.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/classes/TextFilter.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/contentManagementFilterTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/test/contentManagementFilterTest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -103,6 +102,7 @@
       <workItem from="1614095800048" duration="678000" />
       <workItem from="1614135557399" duration="14000" />
       <workItem from="1614138617223" duration="1015000" />
+      <workItem from="1614269880895" duration="3698000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1613672134486</created>
@@ -146,7 +146,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614204270147</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Implement text filter with blacklist/whitelist">
+      <created>1614206520431</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1614206520431</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -172,7 +179,8 @@
     <MESSAGE value="Add functions, create userguide.md" />
     <MESSAGE value="Create post block value reading function" />
     <MESSAGE value="Clean up removal function" />
-    <option name="LAST_COMMIT_MESSAGE" value="Clean up removal function" />
+    <MESSAGE value="Implement text filter with blacklist/whitelist" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement text filter with blacklist/whitelist" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1546" y="202" key="#Inspections" timestamp="1614200088566">
@@ -200,26 +208,26 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="1377" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614205020474" />
-    <state x="1544" y="358" key="FileChooserDialogImpl" timestamp="1614198727647">
+    <state x="1544" y="358" key="FileChooserDialogImpl" timestamp="1614272029165">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="1544" y="358" key="FileChooserDialogImpl/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614198727647" />
-    <state width="1442" height="318" key="GridCell.Tab.0.bottom" timestamp="1614205996200">
+    <state x="1544" y="358" key="FileChooserDialogImpl/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614272029165" />
+    <state width="1441" height="318" key="GridCell.Tab.0.bottom" timestamp="1614210800210">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="1442" height="318" key="GridCell.Tab.0.bottom/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614205996200" />
-    <state width="1442" height="318" key="GridCell.Tab.0.center" timestamp="1614205996199">
+    <state width="1441" height="318" key="GridCell.Tab.0.bottom/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614210800210" />
+    <state width="1441" height="318" key="GridCell.Tab.0.center" timestamp="1614210800210">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="1442" height="318" key="GridCell.Tab.0.center/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614205996199" />
-    <state width="1442" height="318" key="GridCell.Tab.0.left" timestamp="1614205996199">
+    <state width="1441" height="318" key="GridCell.Tab.0.center/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614210800210" />
+    <state width="1441" height="318" key="GridCell.Tab.0.left" timestamp="1614210800210">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="1442" height="318" key="GridCell.Tab.0.left/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614205996199" />
-    <state width="1442" height="318" key="GridCell.Tab.0.right" timestamp="1614205996199">
+    <state width="1441" height="318" key="GridCell.Tab.0.left/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614210800210" />
+    <state width="1441" height="318" key="GridCell.Tab.0.right" timestamp="1614210800210">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="1442" height="318" key="GridCell.Tab.0.right/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614205996199" />
+    <state width="1441" height="318" key="GridCell.Tab.0.right/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614210800210" />
     <state x="797" y="220" key="NewPhpClassDialog" timestamp="1614196800124">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
@@ -234,11 +242,11 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="1375" y="223" key="SettingsEditor/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614198745301" />
-    <state x="585" y="231" key="Vcs.Push.Dialog.v2" timestamp="1614204273869">
+    <state x="585" y="231" key="Vcs.Push.Dialog.v2" timestamp="1614206529882">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="343" y="213" key="Vcs.Push.Dialog.v2/0.0.1500.960@0.0.1500.960" timestamp="1614141168354" />
-    <state x="585" y="231" key="Vcs.Push.Dialog.v2/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614204273869" />
+    <state x="585" y="231" key="Vcs.Push.Dialog.v2/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614206529882" />
     <state x="1634" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1614193990143">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>

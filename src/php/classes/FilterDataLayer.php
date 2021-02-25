@@ -25,8 +25,17 @@ class FilterDataLayer
         }
     }
     //insert
-    function insertBlockMessage(){
-
+    function insertBlockMessage(array $msgData){
+        $query = $this->conn->prepare("insert into `blocks` (blockReason, target, resolution, blockDate, appealMessage) values (?,?,?,NOW(),?)");
+        $query->execute($msgData);
+    }
+    function insertWhitelistWord($word){
+        $query = $this->conn->prepare("insert into `whitelist` (word, dateAdded) values (?,NOW())");
+        $query->execute([$word]);
+    }
+    function insertBlacklistWord($word){
+        $query = $this->conn->prepare("insert into `blacklist` (word, dateAdded) values (?,NOW())");
+        $query->execute([$word]);
     }
     //select
     function getBlockedPosts(){

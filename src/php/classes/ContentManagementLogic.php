@@ -16,10 +16,25 @@ class ContentManagementLogic
     //exposed functions to library user
     //------------------------------------------------------------------------------------------------------------------
     /**
+     * @param $postID
+     * @param $blockReason
+     */
+    public function createBlockMessage($postID,$blockReason){
+        $this->dl->insertBlockMessage([$blockReason,$postID,"No resolution yet","No appeal"]);
+    }
+
+    /**
+     * @param $postID
+     */
+    public function allowPost($postID){
+        $this->dl->updatePostBlockedValue([1,$postID]);
+    }
+    /**
      * Scan string of input for profanity. 'words' to check determined
      * by space between characters
      * @param $input
      *
+     * @return bool
      */
     public function checkInputForProfanity($input){
         return $this->tf->checkForProfanityInWords($input);
@@ -61,36 +76,33 @@ class ContentManagementLogic
     //-----------------------------------------------------------------------------------------------------------------
 
     //admin tools
-    function getRecentBlockMessage(){
+    protected function getRecentBlockMessage(){
         return $this->dl->getRecentBlockMessage();
 
     }
 
 
-    function saveDeletedPost($userID,$postID,$content,$image){
+    protected function saveDeletedPost($userID,$postID,$content,$image){
         $this->dl->insertDeletedPost([$userID,$postID,$content,$image]);
     }
-    function allowPost($postID){
-        $this->dl->updatePostBlockedValue([1,$postID]);
-    }
 
-    function blockPost($postID){
+    protected function blockPost($postID){
         $this->dl->updatePostBlockedValue([0,$postID]);
     }
-    function getUserPost($postID){
+    protected function getUserPost($postID){
         $postData = $this->dl->getPostById($postID);
         return $postData['blocked'];
     }
-    function getResolveMessageById($msgID){
+    protected function getResolveMessageById($msgID){
         return $this->dl->getResolvedBlockMessageByID($msgID);
     }
-    function generateResolvedMessageList(){
+    protected function generateResolvedMessageList(){
         $resolvedMessages = $this->dl->getResolvedBlockMessages();
         foreach($resolvedMessages as $message){
             $this->generateResolveMessage($message);
         }
     }
-    function generateResolveMessage(array $messageData){
+    protected function generateResolveMessage(array $messageData){
         $blockReason = $messageData['blockReason'];
         $postID = $messageData['target'];
         $post = $this->getPost($postID);
@@ -108,7 +120,7 @@ class ContentManagementLogic
         }
         $this->displayResolvedMessage($username,$blockReason,$postContent,$resolution,$originalBlockDate);
     }
-    function displayResolvedMessage($userLink, $reason, $originalContent,$resolution,$originalBlockDate){
+    protected function displayResolvedMessage($userLink, $reason, $originalContent,$resolution,$originalBlockDate){
         echo "<table border size=8 cellpadding=8>";
         echo "<tr>";
         echo "<th>User</th>";
@@ -129,10 +141,7 @@ class ContentManagementLogic
     }
 
     //blocking
-    function createBlockMessage($postID,$blockReason){
-        $resolution = "No resolution yet";
-    }
-    function getBlockPosts(){
+    protected function getBlockPosts(){
         return $this->dl->getBlockedPosts();
     }
 
