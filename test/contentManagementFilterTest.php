@@ -26,7 +26,14 @@ class contentManagementFilterTest extends TestCase{
         $testDetect = $this->cms->checkInputForProfanity('fuck this word');
         $this->assertEquals(False,$testDetect);
     }
-    public function testBlockPost(){
-
+    public function testBlockMessageFromFilterBlock(){
+        $postID = 999;
+        $input = "shit input here";
+        $filterValue = $this->cms->checkInputForProfanity($input);
+        if($filterValue == False){
+            $this->cms->createBlockMessage($postID,"TEST profanity detected from user input TEST");
+        }
+        $selectedBlockMsg = $this->cms->getBlockMessageByPostID($postID);
+        $this->assertEquals("TEST profanity detected from user input TEST",$selectedBlockMsg['blockReason']);
     }
 }

@@ -65,6 +65,9 @@ class ContentManagementLogic
         }
         return $tagged_posts;
     }
+    public function getBlockMessageByPostID($postID){
+        return $this->dl->getBlockMessageFromPostID($postID);
+    }
 
     public function viewBlockQueue(){
 
@@ -144,6 +147,7 @@ class ContentManagementLogic
     protected function getBlockPosts(){
         return $this->dl->getBlockedPosts();
     }
+
 
     //posts
     protected function checkBlockedPosts($standardPostsObject){

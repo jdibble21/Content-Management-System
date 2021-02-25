@@ -38,6 +38,11 @@ class FilterDataLayer
         $query->execute([$word]);
     }
     //select
+    function getBlockMessageFromPostID($postID){
+        $query = $this->conn->prepare("select * from `blocks` where target=?");
+        $query->execute([$postID]);
+        return $query->fetch();
+    }
     function getBlockedPosts(){
         $query = $this->conn->prepare("select * from `'blockedposts`");
         $query->execute();
