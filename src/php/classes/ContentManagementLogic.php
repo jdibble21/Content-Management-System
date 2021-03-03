@@ -58,12 +58,20 @@ class ContentManagementLogic
         return $this->tf->checkForProfanityInWords($input);
     }
 
+    /**
+     * Display current words whitelisted for the filter to allow.
+     * Used in Admin dashboard
+     */
     public function generateCurrentWhitelist(){
         $words = $this->tf->getWhitelist();
         foreach ($words as $word){
             $this->generateWhitelistWord($word);
         }
     }
+    /**
+     * Display current words blacklisted for the filter to block.
+     * Used in Admin dashboard
+     */
     function generateCurrentBlacklist(){
         $words = $this->tf->getBlacklist();
         foreach ($words as $word){
