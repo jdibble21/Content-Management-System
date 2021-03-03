@@ -58,6 +58,18 @@ class ContentManagementLogic
         return $this->tf->checkForProfanityInWords($input);
     }
 
+    public function generateCurrentWhitelist(){
+        $words = $this->tf->getWhitelist();
+        foreach ($words as $word){
+            $this->generateWhitelistWord($word);
+        }
+    }
+    function generateCurrentBlacklist(){
+        $words = $this->tf->getBlacklist();
+        foreach ($words as $word){
+            $this->generateBlacklistWord($word);
+        }
+    }
     public function addWhitelistWord($word){
         $this->dl->insertWhitelistWord($word);
     }
@@ -274,5 +286,31 @@ class ContentManagementLogic
     protected function appendBlockValue($post,$value){
         $post['blockStatus'] = $value;
         return $post;
+    }
+
+    //whitelist and blacklist
+    protected function generateWhitelistWord(array $wordData){
+        $wordText = $wordData['word'];
+        $addDate = $wordData['dateAdded'];
+        $this->displayWhitelistWord($wordText,$addDate);
+    }
+
+    protected function displayWhitelistWord($wordText, $addDate){
+        echo "<tr>";
+        echo "<td>$wordText</td>";
+        echo "<td>$addDate</td>";
+        echo "</tr>";
+    }
+    protected function generateBlacklistWord(array $wordData){
+        $wordText = $wordData['word'];
+        $addDate = $wordData['dateAdded'];
+        $this->displayBlacklistWord($wordText,$addDate);
+    }
+
+    protected function displayBlacklistWord($wordText, $addDate){
+        echo "<tr>";
+        echo "<td>$wordText</td>";
+        echo "<td>$addDate</td>";
+        echo "</tr>";
     }
 }
