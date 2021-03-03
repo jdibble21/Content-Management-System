@@ -1,5 +1,5 @@
 <?php
-require_once ("src\php\classes\FilterDataLayer.php");
+require_once ("FilterDataLayer.php");
 class TextFilter
 {
     private $dl;

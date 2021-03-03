@@ -1,7 +1,5 @@
 <?php
-require_once ("src\php\classes\FilterDataLayer.php");
-require_once ("src\php\classes\TextFilter.php");
-require_once __DIR__.("\..\..\..\..\..\classes\businessLogic.php");
+require('includes.php');
 
 class ContentManagementLogic
 {
