@@ -37,11 +37,17 @@ class FilterDataLayer
         $query = $this->conn->prepare("insert into `blacklist` (word, dateAdded) values (?,NOW())");
         $query->execute([$word]);
     }
+
     //select
     function getBlockMessageFromPostID($postID){
         $query = $this->conn->prepare("select * from `blocks` where target=?");
         $query->execute([$postID]);
         return $query->fetch();
+    }
+    function getBlockMessages(){
+        $query = $this->conn->prepare("select * from `blocks`");
+        $query->execute();
+        return $query->fetchAll();
     }
     function getBlockedPosts(){
         $query = $this->conn->prepare("select * from `'blockedposts`");
@@ -57,5 +63,15 @@ class FilterDataLayer
         $query = $this->conn->prepare("select * from `blacklist`");
         $query->execute();
         return $query->fetchAll();
+    }
+
+    //delete
+    function deleteWhitelistWord($word){
+        $query = $this->conn->prepare("delete from `whitelist` where word=?");
+        $query->execute([$word]);
+    }
+    function deleteBlacklistWord($word){
+        $query = $this->conn->prepare("delete from `blacklist` where word=?");
+        $query->execute([$word]);
     }
 }
