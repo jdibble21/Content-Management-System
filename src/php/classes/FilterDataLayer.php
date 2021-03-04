@@ -37,6 +37,12 @@ class FilterDataLayer
         $query = $this->conn->prepare("insert into `blacklist` (word, dateAdded) values (?,NOW())");
         $query->execute([$word]);
     }
+    //update
+
+    function updateBlockedMessageAppeal(array $appeal){
+        $query = $this->conn->prepare("update blocks set appeal=?,appealMessage=? where target=?");
+        $query->execute($appeal);
+    }
 
     //select
     function getBlockMessageFromPostID($postID){

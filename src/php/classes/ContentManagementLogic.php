@@ -99,7 +99,7 @@ class ContentManagementLogic
      * @param $appealMessage
      */
     public function appealBlock($postID, $appealMessage){
-
+        $this->dl->updateBlockedMessageAppeal([0, $appealMessage, $postID]);
     }
 
     /**
@@ -127,9 +127,6 @@ class ContentManagementLogic
         return $this->dl->getBlockMessageFromPostID($postID);
     }
 
-    public function viewBlockQueue(){
-
-    }
     public function viewResolvedMessagesInHTMLTable(){
 
     }
