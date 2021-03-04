@@ -19,12 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e394aa6-5183-4645-a76e-f9bf829a5350" name="Default Changelist" comment="Implement text filter with blacklist/whitelist">
+    <list default="true" id="7e394aa6-5183-4645-a76e-f9bf829a5350" name="Default Changelist" comment="More javascript libraries and enable admin to add blacklisted words">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/classes/ContentManagementLogic.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/classes/ContentManagementLogic.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/classes/FilterDataLayer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/classes/FilterDataLayer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/classes/TextFilter.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/classes/TextFilter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/contentManagementFilterTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/test/contentManagementFilterTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/cmsAjaxFunctions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/cmsAjaxFunctions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/dataManagement/blacklistManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/dataManagement/blacklistManager.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +35,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/js/cmsAjaxFunctions.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/js/alertifyInit.js" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
   <component name="ProjectId" id="1odTBNFtMSbtRzMv0FamKL9w35O" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -45,14 +47,18 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/js" />
     <property name="settings.editor.selected.configurable" value="php.test.frameworks.configurable" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\Betterflye\php\contentManagementSystem\Content-Management-System\src\js" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\jdtar\PhpstormProjects\Content-Management-System\src" />
       <recent name="C:\Users\jdtar\PhpstormProjects\Content-Management-System\php" />
@@ -103,6 +109,10 @@
       <workItem from="1614135557399" duration="14000" />
       <workItem from="1614138617223" duration="1015000" />
       <workItem from="1614269880895" duration="3698000" />
+      <workItem from="1614721962363" duration="4943000" />
+      <workItem from="1614796292382" duration="445000" />
+      <workItem from="1614796756793" duration="15492000" />
+      <workItem from="1614879015206" duration="913000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1613672134486</created>
@@ -153,7 +163,42 @@
       <option name="project" value="LOCAL" />
       <updated>1614206520431</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Add existing methods and tests">
+      <created>1614808949577</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1614808949577</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Add includes.php, modify filepaths for implementation">
+      <created>1614809838375</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1614809838375</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Integrate whitelist/blacklist viewing methods for admin">
+      <created>1614811365449</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1614811365449</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Add javascript libraries for AJAX">
+      <created>1614812048781</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1614812048781</updated>
+    </task>
+    <task id="LOCAL-00012" summary="More javascript libraries and enable admin to add blacklisted words">
+      <created>1614813218486</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1614813218486</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,7 +225,12 @@
     <MESSAGE value="Create post block value reading function" />
     <MESSAGE value="Clean up removal function" />
     <MESSAGE value="Implement text filter with blacklist/whitelist" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement text filter with blacklist/whitelist" />
+    <MESSAGE value="Add existing methods and tests" />
+    <MESSAGE value="Add includes.php, modify filepaths for implementation" />
+    <MESSAGE value="Integrate whitelist/blacklist viewing methods for admin" />
+    <MESSAGE value="Add javascript libraries for AJAX" />
+    <MESSAGE value="More javascript libraries and enable admin to add blacklisted words" />
+    <option name="LAST_COMMIT_MESSAGE" value="More javascript libraries and enable admin to add blacklisted words" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1546" y="202" key="#Inspections" timestamp="1614200088566">
@@ -195,58 +245,58 @@
       <screen x="0" y="0" width="1500" height="960" />
     </state>
     <state x="162" y="322" key="#SQL_Dialects/0.0.1500.960@0.0.1500.960" timestamp="1614105063818" />
-    <state x="1500" y="178" key="#Test_Frameworks" timestamp="1614197565181">
+    <state x="1500" y="178" key="#Test_Frameworks" timestamp="1614796830258">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="1500" y="178" key="#Test_Frameworks/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614197565181" />
-    <state x="585" y="151" width="980" height="707" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1614198769323">
+    <state x="1500" y="178" key="#Test_Frameworks/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614796830258" />
+    <state x="585" y="151" width="980" height="707" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1614796791541">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="343" y="139" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1500.960@0.0.1500.960" timestamp="1614105069340" />
-    <state x="585" y="151" width="980" height="707" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614198769323" />
+    <state x="585" y="151" width="980" height="707" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614796791541" />
     <state x="1377" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1614205020474">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="1377" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614205020474" />
-    <state x="1544" y="358" key="FileChooserDialogImpl" timestamp="1614272029165">
+    <state x="1544" y="358" key="FileChooserDialogImpl" timestamp="1614796803162">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="1544" y="358" key="FileChooserDialogImpl/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614272029165" />
-    <state width="1441" height="318" key="GridCell.Tab.0.bottom" timestamp="1614210800210">
+    <state x="1544" y="358" key="FileChooserDialogImpl/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614796803162" />
+    <state width="1277" height="503" key="GridCell.Tab.0.bottom" timestamp="1614818716528">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="1441" height="318" key="GridCell.Tab.0.bottom/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614210800210" />
-    <state width="1441" height="318" key="GridCell.Tab.0.center" timestamp="1614210800210">
+    <state width="1277" height="503" key="GridCell.Tab.0.bottom/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614818716528" />
+    <state width="1277" height="503" key="GridCell.Tab.0.center" timestamp="1614818716528">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="1441" height="318" key="GridCell.Tab.0.center/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614210800210" />
-    <state width="1441" height="318" key="GridCell.Tab.0.left" timestamp="1614210800210">
+    <state width="1277" height="503" key="GridCell.Tab.0.center/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614818716528" />
+    <state width="1277" height="503" key="GridCell.Tab.0.left" timestamp="1614818716528">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="1441" height="318" key="GridCell.Tab.0.left/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614210800210" />
-    <state width="1441" height="318" key="GridCell.Tab.0.right" timestamp="1614210800210">
+    <state width="1277" height="503" key="GridCell.Tab.0.left/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614818716528" />
+    <state width="1277" height="503" key="GridCell.Tab.0.right" timestamp="1614818716528">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="1441" height="318" key="GridCell.Tab.0.right/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614210800210" />
+    <state width="1277" height="503" key="GridCell.Tab.0.right/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614818716528" />
     <state x="797" y="220" key="NewPhpClassDialog" timestamp="1614196800124">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="467" y="203" key="NewPhpClassDialog/0.0.1500.960@0.0.1500.960" timestamp="1613617037211" />
     <state x="797" y="220" key="NewPhpClassDialog/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614196800124" />
-    <state x="998" y="438" key="NewPhpFileDialog" timestamp="1614196682784">
+    <state x="998" y="438" key="NewPhpFileDialog" timestamp="1614817634319">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="585" y="404" key="NewPhpFileDialog/0.0.1500.960@0.0.1500.960" timestamp="1613615723482" />
-    <state x="998" y="438" key="NewPhpFileDialog/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614196682784" />
+    <state x="998" y="438" key="NewPhpFileDialog/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614817634319" />
     <state x="1375" y="223" key="SettingsEditor" timestamp="1614198745301">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="1375" y="223" key="SettingsEditor/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614198745301" />
-    <state x="585" y="231" key="Vcs.Push.Dialog.v2" timestamp="1614206529882">
+    <state x="585" y="231" key="Vcs.Push.Dialog.v2" timestamp="1614811369370">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="343" y="213" key="Vcs.Push.Dialog.v2/0.0.1500.960@0.0.1500.960" timestamp="1614141168354" />
-    <state x="585" y="231" key="Vcs.Push.Dialog.v2/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614206529882" />
+    <state x="585" y="231" key="Vcs.Push.Dialog.v2/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614811369370" />
     <state x="1634" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1614193990143">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>

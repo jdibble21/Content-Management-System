@@ -34,9 +34,9 @@ function addWordToBlacklist(word){
         data: {
             word: word
         },
-        url: "/src/php//blacklistManager.php",
+        url: "/php/contentManagementSystem/Content-Management-System/src/php/dataManagement/blacklistManager.php",
         success: async function () {
-            await successFunction("Word Added");
+            successFunction("Word Added to Blacklist");
         }
     });
 }

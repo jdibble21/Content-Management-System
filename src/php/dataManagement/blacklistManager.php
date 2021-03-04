@@ -1,8 +1,9 @@
 <?php
-require("../classes/TextFilter.php");
+include_once "../classes/ContentManagementLogic.php";
 session_start();
 
-$tf = new TextFilter();
-$word = $_POST['word'];
+$cms = new ContentManagementLogic();
 
-$tf->addToBlacklist($word);
+$word = $_POST['word'];
+$_SESSION['testVal'] = $word;
+$cms->addBlacklistWord($word);
