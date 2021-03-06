@@ -31,3 +31,20 @@ CREATE TABLE `blockedposts`(
                                 `blockStatus` int(11) NOT NULL DEFAULT 1
 
 );
+DROP TABLE IF EXISTS `deletedposts`;
+CREATE TABLE `deletedposts` (
+                                `deleteID` int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+                                `userID` varchar(255) NOT NULL,
+                                `fullName` text NOT NULL,
+                                `postID` int(11) NOT NULL,
+                                `originalContent` text NOT NULL,
+                                `originalImage` varchar(255) NOT NULL
+);
+DROP TABLE IF EXISTS `bannedorgusers`;
+CREATE TABLE `bannedorgusers` (
+                                  `orgID` int(11) NOT NULL,
+                                  `userID` int(11) NOT NULL,
+                                  UNIQUE KEY `uniqueness2` (`userID`,`orgID`),
+                                  KEY `orgID` (`orgID`),
+                                  KEY `userID` (`userID`)
+);

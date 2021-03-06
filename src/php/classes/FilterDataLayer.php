@@ -6,6 +6,7 @@ class FilterDataLayer
     private $conn;
 
     public function __construct(){
+
         $hostname = 'localhost';
         $port = 3306;
         $dbName = 'cmsdata';
@@ -13,6 +14,7 @@ class FilterDataLayer
         $dbPass = '';
         //change mysql to database type
         $dsn = "mysql:host=$hostname;dbname=$dbName;charset=utf8mb4";
+
         $options = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -37,14 +39,24 @@ class FilterDataLayer
         $query = $this->conn->prepare("insert into `blacklist` (word, dateAdded) values (?,NOW())");
         $query->execute([$word]);
     }
+
     //update
 
     function updateBlockedMessageAppeal(array $appeal){
         $query = $this->conn->prepare("update blocks set appeal=?,appealMessage=? where target=?");
         $query->execute($appeal);
     }
+    function updateResolveBlockMessage(array $resolve){
+        $query = $this->conn->prepare("update blocks set resolved=?,resolution=? where messageID=?");
+        $query->execute($resolve);
+    }
 
     //select
+    function getPostIDFromBlockID($blockID){
+        $query = $this->conn->prepare("select target from blocks where messageID = ?");
+        $query->execute([$blockID]);
+        return $query->fetch();
+    }
     function getBlockMessageFromPostID($postID){
         $query = $this->conn->prepare("select * from `blocks` where target=?");
         $query->execute([$postID]);
@@ -55,8 +67,13 @@ class FilterDataLayer
         $query->execute();
         return $query->fetchAll();
     }
+    function getResolvedBlockMessages(){
+        $query = $this->conn->prepare("select * from `blocks` where resolved=0");
+        $query->execute();
+        return $query->fetchAll();
+    }
     function getBlockedPosts(){
-        $query = $this->conn->prepare("select * from `'blockedposts`");
+        $query = $this->conn->prepare("select * from `blockedposts`");
         $query->execute();
         return $query->fetchAll();
     }
@@ -80,4 +97,6 @@ class FilterDataLayer
         $query = $this->conn->prepare("delete from `blacklist` where word=?");
         $query->execute([$word]);
     }
+
+
 }

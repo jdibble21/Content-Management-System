@@ -17,6 +17,11 @@ class ContentManagementLogic
 
     //exposed functions to library user
     //------------------------------------------------------------------------------------------------------------------
+    public function displayUserFullFeed($userID,$pageNo=1){
+        $feed = $this->bl->getUserAllFeed($userID,$pageNo);
+        $cleanFeed = $this->cms->removeBlockedPosts($feed);
+        $this->bl->displayPostSequence($cleanFeed);
+    }
     /**
      * Create a message to be seen in admin dashboard referencing
      * a blocked post by user. When viewed in dashboard, options
@@ -41,12 +46,27 @@ class ContentManagementLogic
     }
 
     /**
+     * Print a list of past resolved block messages, includes
+     * a description of the resolution and details associated with
+     * original message
+     */
+    public function generateResolvedMessageList(){
+        $resolvedMessages = $this->dl->getResolvedBlockMessages();
+        foreach($resolvedMessages as $message){
+            $this->generateResolveMessage($message);
+        }
+    }
+
+    /**
      * Admin option to changed a posts block value to false, allowing
      * the post to be seen by all users and resolving the block message
      * @param $postID
      */
     public function allowPost($postID){
         $this->dl->updatePostBlockedValue([1,$postID]);
+    }
+    function resolveBlockMessage($msgID,$description){
+        $this->dl->updateResolveBlockMessage([0,$description,$msgID]);
     }
     /**
      * Scan string of input for profanity. 'words' to check determined
@@ -77,6 +97,13 @@ class ContentManagementLogic
         foreach ($words as $word){
             $this->generateBlacklistWord($word);
         }
+    }
+    function getWhitelist(){
+        return $this->dl->getWhitelist();
+    }
+
+    function getBlacklist(){
+        return $this->dl->getBlacklist();
     }
     public function addWhitelistWord($word){
         $this->dl->insertWhitelistWord($word);
@@ -123,6 +150,9 @@ class ContentManagementLogic
         }
         return $tagged_posts;
     }
+    public function addBlockedPostReference($postID){
+
+    }
     public function getBlockMessageByPostID($postID){
         return $this->dl->getBlockMessageFromPostID($postID);
     }
@@ -151,12 +181,7 @@ class ContentManagementLogic
     protected function getResolveMessageById($msgID){
         return $this->dl->getResolvedBlockMessageByID($msgID);
     }
-    protected function generateResolvedMessageList(){
-        $resolvedMessages = $this->dl->getResolvedBlockMessages();
-        foreach($resolvedMessages as $message){
-            $this->generateResolveMessage($message);
-        }
-    }
+
     protected function generateResolveMessage(array $messageData){
         $blockReason = $messageData['blockReason'];
         $postID = $messageData['target'];
@@ -211,7 +236,6 @@ class ContentManagementLogic
         //Add if statements to detect type of content that was blocked
         list($title, $content, $flaggedUserLink, $flaggedLocation, $imageLink) = $this->generatePostBlockData($blockReason,$postID);
         $this->displayBlockMessage($msgID,$title, $content,$flaggedUserLink,$flaggedLocation,$imageLink,$blockDate,$appeal,$appealMessage);
-
     }
 
     protected function generatePostBlockData($reason, $postID){
