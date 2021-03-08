@@ -5,23 +5,18 @@ class ContentManagementLogic
 {
     private $dl;
     private $tf;
-    private $bl;
 
     public function __construct(){
         $this->dl = new FilterDataLayer();
         $this->tf = new TextFilter();
-        $this->bl = new businessLogic();
-        // necessary to use businessLogic for betterflye db related features
+
+
     }
 
 
     //exposed functions to library user
     //------------------------------------------------------------------------------------------------------------------
-    public function displayUserFullFeed($userID,$pageNo=1){
-        $feed = $this->bl->getUserAllFeed($userID,$pageNo);
-        $cleanFeed = $this->cms->removeBlockedPosts($feed);
-        $this->bl->displayPostSequence($cleanFeed);
-    }
+
     /**
      * Create a message to be seen in admin dashboard referencing
      * a blocked post by user. When viewed in dashboard, options
@@ -38,11 +33,9 @@ class ContentManagementLogic
      * for each message (allow, delete post, delete user). Intended
      * to be used in admin dashboard.
      */
-    public function generateBlockList(){
-        $blocks = $this->getBlocks();
-        foreach ($blocks as $block){
-            $this->generateBlock($block);
-        }
+    public function getBlockMessages(){
+        return $this->getBlocks();
+
     }
 
     /**
@@ -182,43 +175,7 @@ class ContentManagementLogic
         return $this->dl->getResolvedBlockMessageByID($msgID);
     }
 
-    protected function generateResolveMessage(array $messageData){
-        $blockReason = $messageData['blockReason'];
-        $postID = $messageData['target'];
-        $post = $this->bl->getPost($postID);
-        if($post['postText'] == ""){
-            list($username, $postContent, $postImage) = $this->getDeletedPost($postID);
-            $resolution = $messageData['resolution'];
-            $originalBlockDate = $messageData['blockDate'];
-        }else{
-            $post = $this->bl->getPost($postID);
-            $postContent = $post['postText'];
-            $type = $this->bl->getPoster($postID)[3];
-            list($blockedUser, $username, $blockedLocation) = $this->bl->getPosterInfoFromPostID($type, $postID);
-            $resolution = $messageData['resolution'];
-            $originalBlockDate = $messageData['blockDate'];
-        }
-        $this->displayResolvedMessage($username,$blockReason,$postContent,$resolution,$originalBlockDate);
-    }
-    protected function displayResolvedMessage($userLink, $reason, $originalContent,$resolution,$originalBlockDate){
-        echo "<table border size=8 cellpadding=8>";
-        echo "<tr>";
-        echo "<th>User</th>";
-        echo "<th>Resolution</th>";
-        echo "<th>Reason for Original Block</th>";
-        echo "<th>Original Content</th>";
-        echo "<th>Original Block Date</th>";
-        echo "</tr>";
-        echo "<tr>";
-        echo "<td>$userLink</td>";
-        echo "<td>$resolution</td>";
-        echo "<td>$reason</td>";
-        echo "<td>$originalContent</td>";
-        echo "<td>$originalBlockDate</td>";
-        echo "</tr>";
-        echo "</table>";
-        echo "<br>";
-    }
+
 
     //blocking
     protected function getBlockPosts(){
@@ -229,68 +186,7 @@ class ContentManagementLogic
         return $this->dl->getBlockMessages();
     }
 
-    protected function generateBlock(array $msgData){
-        $msgID = $msgData['messageID'];$blockReason = $msgData['blockReason'];$postID = $msgData['target'];
-        $appeal = $msgData['appeal'];$appealMessage = $msgData['appealMessage'];$blockDate = $msgData['blockDate'];
 
-        //Add if statements to detect type of content that was blocked
-        list($title, $content, $flaggedUserLink, $flaggedLocation, $imageLink) = $this->generatePostBlockData($blockReason,$postID);
-        $this->displayBlockMessage($msgID,$title, $content,$flaggedUserLink,$flaggedLocation,$imageLink,$blockDate,$appeal,$appealMessage);
-    }
-
-    protected function generatePostBlockData($reason, $postID){
-        $post = $this->bl->getPost($postID);
-        $title = "The following <b>post</b> was blocked for: $reason";
-        $content = $post['postText'];
-        $image = (($post['postImage'] != 'null') ? "$post[postImage]" : "No Image");
-        $type = $this->bl->getPoster($postID)[3];
-        list($blockedUser, $blockedUserLink, $blockedLocation) = $this->bl->getPosterInfoFromPostID($type, $postID);
-        $imagePath = $this->bl->getImagePathFromPostID($postID, $image, $blockedUser);
-        $imageLink = $this->bl->getImageLinkFromImagePath($imagePath, $image);
-        return array($title, $content, $blockedUserLink, $blockedLocation, $imageLink);
-    }
-
-    protected function displayBlockMessage($blockID,$title, $content, $userLink, $location, $imageLink, $blockDate, $appeal, $appealMessage){
-        $headStyle = '';
-        $messageStyle = '';
-        if($appeal == 0){
-            $headStyle = "style='background-color: orange;'";
-            $messageStyle = "style='color: orange;'";
-        }elseif ($appeal == 1){
-            $appealMessage = "No appeal";
-        }
-        echo "<table border size=8 cellpadding=10>";
-        echo "<tr>";
-        echo "<th>User</th>";
-        echo "<th>Reason</th>";
-        echo "<th>Content</th>";
-        echo "<th>Image</th>";
-        echo "<th>Date of Block</th>";
-        echo "<th $headStyle>Appeal</th>";
-        echo "<th></th>";
-        echo "</tr>";
-        echo "<tr>";
-        echo "<td>$userLink</td>";
-        echo "<td>$title</td>";
-        echo "<td>$content</td>";
-        echo "<td>$imageLink</td>";
-        echo "<td>$blockDate</td>";
-        echo "<td $messageStyle>$appealMessage</td>";
-        echo "<td>".$this->getBlockMessageOptions($blockID)."</td>";
-        echo "</tr>";
-        echo "</table>";
-        echo "<br>";
-    }
-
-    protected function getBlockMessageOptions($blockID){
-        $selectName = "#blockOptions".$blockID." option:selected";
-        return "<p>Options:</p><p><select id='blockOptions$blockID'>
-                         <option value='allow'>Allow</option>
-                         <option value='deletePost'>Delete Post</option>
-                         <option value='deleteUser'>Delete User</option>
-                    </select></p>
-                    <button class='btn btn-warning' onclick='resolve($blockID,\"post\",$(\"$selectName\").text())'>Resolve</button>";
-    }
 
     //posts
     protected function checkBlockedPosts($standardPostsObject){
