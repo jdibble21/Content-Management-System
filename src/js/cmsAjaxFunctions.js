@@ -27,6 +27,69 @@ async function errorFunction(string,reload='reload') {
     }
 }
 
+function resolve(msgID,type,option) {
+    if(option == "Delete User"){
+        deleteUserByBlockMsgID(msgID);
+    }
+    if(option == "Allow"){
+        allowPost(msgID);
+    }
+    if(option == "Delete Post"){
+        adminDeletePost(msgID);
+    }
+}
+
+function deleteUserByBlockMsgID(blockID){
+    alertify.confirm('<p>Deleting an account cannot be undone. Are you sure?</p>', function(e){
+        if(e){
+            $.ajax({
+                type: "POST",
+                data: {
+                    msgID: blockID,
+                },
+                url: "/php/contentManagementFilter/adminControls/deleteUserFromPostID.php",
+                success(){
+                    successFunction("Account Deleted!");
+                }
+            });
+        }
+
+    })
+
+}
+function adminDeletePost(msgID){
+    alertify.confirm('Before You Delete', 'Are you sure you wish to delete this post? There is no way to get it back after.',
+        function(){
+            $.ajax({
+                type: "POST",
+                async: false,
+                data: {
+                    msgID: msgID,
+                },
+                url: "/php/contentManagementSystem/Content-Management-System/src/php/adminControls/deletePost.php",
+                success: async function () {
+                    await successFunction("Deleted Successfully!");
+
+                },
+            });
+        },function(){
+
+        });
+}
+
+function allowPost(blockID){
+    $.ajax({
+        type: "POST",
+        data: {
+            msgID: blockID,
+        },
+        url: "/php/contentManagementFilter/adminControls/allowUserPost.php",
+        success(){
+            alertify.alert("Post Allowed");
+        }
+    });
+}
+
 function addWordToBlacklist(word){
     $.ajax({
         type: "POST",
@@ -50,18 +113,7 @@ function addWordToWhitelist(word){
         },
         url: "/php/contentManagementFilter/whitelistManager.php",
         success: async function () {
-            $.ajax({
-                url:"/php/contentManagementFilter/varStorage/whitelistWordAddStorage.php",
-                cache:false,
-                success:function(data){
-
-                    if(data == "0"){
-                        successFunction("Word Added");
-                    }else{
-                        errorFunction("Word already exists!",'');
-                    }
-                }
-            })
+            successFunction("Word Added to Whitelist");
         }
     });
 }

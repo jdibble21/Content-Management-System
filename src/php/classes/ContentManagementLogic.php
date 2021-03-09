@@ -9,10 +9,7 @@ class ContentManagementLogic
     public function __construct(){
         $this->dl = new FilterDataLayer();
         $this->tf = new TextFilter();
-
-
     }
-
 
     //exposed functions to library user
     //------------------------------------------------------------------------------------------------------------------
@@ -26,6 +23,7 @@ class ContentManagementLogic
      */
     public function createBlockMessage($postID,$blockReason){
         $this->dl->insertBlockMessage([$blockReason,$postID,"No resolution yet","No appeal"]);
+        $this->addBlockedPostReference($postID);
     }
 
     /**
@@ -143,15 +141,23 @@ class ContentManagementLogic
         }
         return $tagged_posts;
     }
+
     public function addBlockedPostReference($postID){
 
+    }
+    public function removeBlockedPostReference($postID){
+        $this->dl->deleteBlockPostReference($postID);
     }
     public function getBlockMessageByPostID($postID){
         return $this->dl->getBlockMessageFromPostID($postID);
     }
 
-    public function viewResolvedMessagesInHTMLTable(){
-
+    public function saveDeletedPost($userID,$fullName,$postID,$content,$image){
+        $this->dl->insertDeletedPost([$userID,$fullName,$postID,$content,$image]);
+    }
+    public function getPostIDFromBlockID($blockID){
+        $postID = $this->dl->getPostIDFromBlockID($blockID);
+        return $postID['target'];
     }
     // end exposed functions
     //-----------------------------------------------------------------------------------------------------------------
@@ -160,9 +166,7 @@ class ContentManagementLogic
 
 
 
-    protected function saveDeletedPost($userID,$postID,$content,$image){
-        $this->dl->insertDeletedPost([$userID,$postID,$content,$image]);
-    }
+
 
     protected function blockPost($postID){
         $this->dl->updatePostBlockedValue([0,$postID]);
@@ -190,13 +194,11 @@ class ContentManagementLogic
 
     //posts
     protected function checkBlockedPosts($standardPostsObject){
-        $modifiedArray = [];
         $blockedPostArray = $this->getBlockPosts();
-        foreach ($standardPostsObject as $post){
-            $blockValue = $this->getArrayValue($post['postID'],$blockedPostArray);
-            $modifiedPost = $this->appendBlockValue($post,$blockValue);
-            array_push($modifiedArray,$modifiedPost);
-        }
+        $blockValue = $this->getArrayValue($standardPostsObject['postID'],$blockedPostArray);
+        $modifiedPost = $this->appendBlockValue($standardPostsObject,$blockValue);
+        array_push($modifiedArray,$modifiedPost);
+
         return $modifiedArray;
     }
     protected function getArrayValue($postIDToGet,$objectArray){
