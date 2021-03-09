@@ -43,6 +43,10 @@ class FilterDataLayer
         $query = $this->conn->prepare("insert into deletedposts (userID, fullName, postID, originalContent, originalImage) values (?,?,?,?,?)");
         $query->execute($postData);
     }
+    function insertBannedOrgMember(array $bannedUser){
+        $query = $this->conn->prepare("insert into bannedorgusers (userID, orgID) values (?,?)");
+        $query->execute($bannedUser);
+    }
 
     //update
 
@@ -56,7 +60,11 @@ class FilterDataLayer
     }
 
     //select
-
+    function getOrgBanStatus($userID){
+        $query = $this->conn->prepare("select orgID from bannedorgusers where userID = ? ");
+        $query->execute([$userID]);
+        return $query->fetch();
+    }
     function getPostIDFromBlockID($blockID){
         $query = $this->conn->prepare("select target from blocks where messageID = ?");
         $query->execute([$blockID]);

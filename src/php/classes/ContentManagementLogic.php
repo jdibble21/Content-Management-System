@@ -159,14 +159,17 @@ class ContentManagementLogic
         $postID = $this->dl->getPostIDFromBlockID($blockID);
         return $postID['target'];
     }
+
+    public function getOrgBanStatus($userID){
+        return $this->dl->getOrgBanStatus($userID);
+    }
+    public function banUserFromOrg(array $orgBan){
+        $this->dl->insertBannedOrgMember($orgBan);
+    }
     // end exposed functions
     //-----------------------------------------------------------------------------------------------------------------
 
     //admin tools
-
-
-
-
 
     protected function blockPost($postID){
         $this->dl->updatePostBlockedValue([0,$postID]);
