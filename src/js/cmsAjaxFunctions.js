@@ -38,7 +38,24 @@ function resolve(msgID,type,option) {
         adminDeletePost(msgID);
     }
 }
+function orgAdminDeletePost(postID) {
+    alertify.confirm('Before You Delete', 'Are you sure you wish to delete this post? There is no way to get it back after.',
+        function(){
+            $.ajax({
+                type: "POST",
+                async: false,
+                data: {
+                    postID: postID
+                },
+                url: "/php/contentManagementSystem/Content-Management-System/src/php/adminControls/orgAdminDeletePost.php",
+                success: async function () {
+                    await successFunction("Deleted Successfully!");
+                },
+            });
+        },function(){
 
+        });
+}
 function deleteUserByBlockMsgID(blockID){
     alertify.confirm('<p>Deleting an account cannot be undone. Are you sure?</p>', function(e){
         if(e){
@@ -47,7 +64,7 @@ function deleteUserByBlockMsgID(blockID){
                 data: {
                     msgID: blockID,
                 },
-                url: "/php/contentManagementFilter/adminControls/deleteUserFromPostID.php",
+                url: "/php/contentManagementSystem/Content-Management-System/src/php/adminControls/orgAdminDeletePost.php",
                 success(){
                     successFunction("Account Deleted!");
                 }

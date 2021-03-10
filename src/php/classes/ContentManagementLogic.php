@@ -166,6 +166,12 @@ class ContentManagementLogic
     public function banUserFromOrg(array $orgBan){
         $this->dl->insertBannedOrgMember($orgBan);
     }
+    public function AddUserPostToOrg(array $postData){
+        $this->dl->insertUserPostToOrg($postData);
+    }
+    public function getOrgIDByOrgPost($userID){
+        return $this->dl->getOrgIDByOrgPoster($userID);
+    }
     // end exposed functions
     //-----------------------------------------------------------------------------------------------------------------
 

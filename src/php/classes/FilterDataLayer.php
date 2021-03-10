@@ -27,6 +27,10 @@ class FilterDataLayer
         }
     }
     //insert
+    function insertUserPostToOrg(array $postData){
+        $query = $this->conn->prepare("insert into userorgposts (postID, userID, orgID) values (?,?,?)");
+        $query->execute($postData);
+    }
     function insertBlockMessage(array $msgData){
         $query = $this->conn->prepare("insert into `blocks` (blockReason, target, resolution, blockDate, appealMessage) values (?,?,?,NOW(),?)");
         $query->execute($msgData);
@@ -60,6 +64,11 @@ class FilterDataLayer
     }
 
     //select
+    function getOrgIDByOrgPoster($userID){
+        $query = $this->conn->prepare("select orgID from userorgposts where userID = ? ");
+        $query->execute([$userID]);
+        return $query->fetch();
+    }
     function getOrgBanStatus($userID){
         $query = $this->conn->prepare("select orgID from bannedorgusers where userID = ? ");
         $query->execute([$userID]);
