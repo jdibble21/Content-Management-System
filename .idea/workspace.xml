@@ -20,11 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e394aa6-5183-4645-a76e-f9bf829a5350" name="Default Changelist" comment="Refactor functions to remove db server overload error">
-      <change afterPath="$PROJECT_DIR$/src/php/adminControls/deletePost.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/php/classes/MediaFilter.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/cmsAjaxFunctions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/cmsAjaxFunctions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/php/classes/ContentManagementLogic.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/classes/ContentManagementLogic.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/php/classes/FilterDataLayer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/classes/FilterDataLayer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/classes/TextFilter.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/classes/TextFilter.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/contentManagementFilterTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/test/contentManagementFilterTest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,7 +54,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/js" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="php.test.frameworks.configurable" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -120,6 +120,10 @@
       <workItem from="1614989542739" duration="882000" />
       <workItem from="1615227296387" duration="13061000" />
       <workItem from="1615323722637" duration="5453000" />
+      <workItem from="1615401260876" duration="10877000" />
+      <workItem from="1615442950528" duration="679000" />
+      <workItem from="1615481350792" duration="4977000" />
+      <workItem from="1615500899795" duration="290000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1613672134486</created>
@@ -284,9 +288,10 @@
       <screen x="0" y="0" width="1500" height="960" />
     </state>
     <state x="162" y="322" key="#SQL_Dialects/0.0.1500.960@0.0.1500.960" timestamp="1614105063818" />
-    <state x="1500" y="178" key="#Test_Frameworks" timestamp="1614796830258">
-      <screen x="0" y="0" width="2560" height="1040" />
+    <state x="387" y="166" key="#Test_Frameworks" timestamp="1615423394934">
+      <screen x="0" y="0" width="1500" height="960" />
     </state>
+    <state x="387" y="166" key="#Test_Frameworks/0.0.1500.960@0.0.1500.960" timestamp="1615423394934" />
     <state x="1500" y="178" key="#Test_Frameworks/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614796830258" />
     <state x="585" y="151" width="980" height="707" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1614796791541">
       <screen x="0" y="0" width="2560" height="1040" />
@@ -297,25 +302,30 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="1377" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614205020474" />
-    <state x="1544" y="358" key="FileChooserDialogImpl" timestamp="1614796803162">
-      <screen x="0" y="0" width="2560" height="1040" />
+    <state x="905" y="330" key="FileChooserDialogImpl" timestamp="1615423382870">
+      <screen x="0" y="0" width="1500" height="960" />
     </state>
+    <state x="905" y="330" key="FileChooserDialogImpl/0.0.1500.960@0.0.1500.960" timestamp="1615423382870" />
     <state x="1544" y="358" key="FileChooserDialogImpl/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1614796803162" />
-    <state width="1372" height="407" key="GridCell.Tab.0.bottom" timestamp="1615327822447">
-      <screen x="0" y="0" width="2560" height="1040" />
+    <state width="1458" height="256" key="GridCell.Tab.0.bottom" timestamp="1615425460235">
+      <screen x="0" y="0" width="1500" height="960" />
     </state>
+    <state width="1458" height="256" key="GridCell.Tab.0.bottom/0.0.1500.960@0.0.1500.960" timestamp="1615425460235" />
     <state width="1372" height="407" key="GridCell.Tab.0.bottom/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1615327822447" />
-    <state width="1372" height="407" key="GridCell.Tab.0.center" timestamp="1615327822447">
-      <screen x="0" y="0" width="2560" height="1040" />
+    <state width="1458" height="256" key="GridCell.Tab.0.center" timestamp="1615425460235">
+      <screen x="0" y="0" width="1500" height="960" />
     </state>
+    <state width="1458" height="256" key="GridCell.Tab.0.center/0.0.1500.960@0.0.1500.960" timestamp="1615425460235" />
     <state width="1372" height="407" key="GridCell.Tab.0.center/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1615327822447" />
-    <state width="1372" height="407" key="GridCell.Tab.0.left" timestamp="1615327822447">
-      <screen x="0" y="0" width="2560" height="1040" />
+    <state width="1458" height="256" key="GridCell.Tab.0.left" timestamp="1615425460235">
+      <screen x="0" y="0" width="1500" height="960" />
     </state>
+    <state width="1458" height="256" key="GridCell.Tab.0.left/0.0.1500.960@0.0.1500.960" timestamp="1615425460235" />
     <state width="1372" height="407" key="GridCell.Tab.0.left/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1615327822447" />
-    <state width="1372" height="407" key="GridCell.Tab.0.right" timestamp="1615327822447">
-      <screen x="0" y="0" width="2560" height="1040" />
+    <state width="1458" height="256" key="GridCell.Tab.0.right" timestamp="1615425460235">
+      <screen x="0" y="0" width="1500" height="960" />
     </state>
+    <state width="1458" height="256" key="GridCell.Tab.0.right/0.0.1500.960@0.0.1500.960" timestamp="1615425460235" />
     <state width="1372" height="407" key="GridCell.Tab.0.right/0.0.2560.1040/-900.-232.900.1519@0.0.2560.1040" timestamp="1615327822447" />
     <state x="797" y="220" key="NewPhpClassDialog" timestamp="1614196800124">
       <screen x="0" y="0" width="2560" height="1040" />

@@ -27,6 +27,10 @@ class FilterDataLayer
         }
     }
     //insert
+    function insertBlockPostReference($postID){
+        $query = $this->conn->prepare("insert into blockedposts (postID) values (?)");
+        $query->execute([$postID]);
+    }
     function insertUserPostToOrg(array $postData){
         $query = $this->conn->prepare("insert into userorgposts (postID, userID, orgID) values (?,?,?)");
         $query->execute($postData);
@@ -34,6 +38,7 @@ class FilterDataLayer
     function insertBlockMessage(array $msgData){
         $query = $this->conn->prepare("insert into `blocks` (blockReason, target, resolution, blockDate, appealMessage) values (?,?,?,NOW(),?)");
         $query->execute($msgData);
+        return $this->conn->lastInsertId();
     }
     function insertWhitelistWord($word){
         $query = $this->conn->prepare("insert into `whitelist` (word, dateAdded) values (?,NOW())");
@@ -79,6 +84,11 @@ class FilterDataLayer
         $query->execute([$blockID]);
         return $query->fetch();
     }
+    function getRecentBlockMessage(){
+        $query = $this->conn->prepare("select * from blocks ORDER BY messageID DESC LIMIT 1");
+        $query->execute();
+        return $query->fetch();
+    }
     function getBlockMessageFromPostID($postID){
         $query = $this->conn->prepare("select * from `blocks` where target=?");
         $query->execute([$postID]);
@@ -122,6 +132,10 @@ class FilterDataLayer
     function deleteBlockPostReference($postID){
         $query = $this->conn->prepare("delete from `blockedposts` where postID=?");
         $query->execute([$postID]);
+    }
+    function deleteBlockMessageByID($msgID){
+        $query = $this->conn->prepare("delete from `blocks` where messageID=?");
+        $query->execute([$msgID]);
     }
 
 

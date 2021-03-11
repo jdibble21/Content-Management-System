@@ -14,86 +14,26 @@ class ContentManagementLogic
     //exposed functions to library user
     //------------------------------------------------------------------------------------------------------------------
 
-    /**
-     * Create a message to be seen in admin dashboard referencing
-     * a blocked post by user. When viewed in dashboard, options
-     * (allow, delete post, delete user) will be available to admin
-     * @param $postID
-     * @param $blockReason
-     */
-    public function createBlockMessage($postID,$blockReason){
-        $this->dl->insertBlockMessage([$blockReason,$postID,"No resolution yet","No appeal"]);
-        $this->addBlockedPostReference($postID);
-    }
-
-    /**
-     * Print a list of current block messages and options
-     * for each message (allow, delete post, delete user). Intended
-     * to be used in admin dashboard.
-     */
-    public function getBlockMessages(){
-        return $this->getBlocks();
-
-    }
-
-    /**
-     * Print a list of past resolved block messages, includes
-     * a description of the resolution and details associated with
-     * original message
-     */
-    public function generateResolvedMessageList(){
-        $resolvedMessages = $this->dl->getResolvedBlockMessages();
-        foreach($resolvedMessages as $message){
-            $this->generateResolveMessage($message);
-        }
-    }
-
-    /**
-     * Admin option to changed a posts block value to false, allowing
-     * the post to be seen by all users and resolving the block message
-     * @param $postID
-     */
-    public function allowPost($postID){
-        $this->dl->updatePostBlockedValue([1,$postID]);
-    }
-    function resolveBlockMessage($msgID,$description){
-        $this->dl->updateResolveBlockMessage([0,$description,$msgID]);
-    }
-    /**
-     * Scan string of input for profanity. 'words' to check determined
-     * by space between characters
-     * @param $input
-     * @return bool
-     */
+    //Text Filter functions
     public function checkInputForProfanity($input){
         return $this->tf->checkForProfanityInWords($input);
     }
-
-    /**
-     * Display current words whitelisted for the filter to allow.
-     * Used in Admin dashboard
-     */
     public function generateCurrentWhitelist(){
         $words = $this->tf->getWhitelist();
         foreach ($words as $word){
             $this->generateWhitelistWord($word);
         }
     }
-    /**
-     * Display current words blacklisted for the filter to block.
-     * Used in Admin dashboard
-     */
-    function generateCurrentBlacklist(){
+    public function generateCurrentBlacklist(){
         $words = $this->tf->getBlacklist();
         foreach ($words as $word){
             $this->generateBlacklistWord($word);
         }
     }
-    function getWhitelist(){
+    public function getWhitelist(){
         return $this->dl->getWhitelist();
     }
-
-    function getBlacklist(){
+    public function getBlacklist(){
         return $this->dl->getBlacklist();
     }
     public function addWhitelistWord($word){
@@ -108,32 +48,35 @@ class ContentManagementLogic
     public function removeBlacklistWord($word){
         $this->dl->deleteBlacklistWord($word);
     }
+    
+   //Blocked posts and related functions
+    public function createBlockMessage($postID,$blockReason){
+        $this->addBlockedPostReference($postID);
+        return $this->dl->insertBlockMessage([$blockReason,$postID,"No resolution yet","No appeal"]);
+    }
+    public function getBlockMessages(){
+        return $this->getBlocks();
 
-    /**
-     * Enable a user to appeal a blocked post for review by admin.
-     * Will update the block message associated with post as having
-     * been appealed
-     * @param $postID
-     * @param $appealMessage
-     */
+    }
+    public function resolveBlockMessage($msgID,$description){
+        $this->dl->updateResolveBlockMessage([0,$description,$msgID]);
+    }
+    public function generateResolvedMessageList(){
+        $resolvedMessages = $this->dl->getResolvedBlockMessages();
+        foreach($resolvedMessages as $message){
+            $this->generateResolveMessage($message);
+        }
+    }
+    public function allowPost($postID){
+        $this->dl->updatePostBlockedValue([1,$postID]);
+    }
     public function appealBlock($postID, $appealMessage){
         $this->dl->updateBlockedMessageAppeal([0, $appealMessage, $postID]);
     }
-
-    /**
-     * Remove posts marked as blocked using object array received
-     * from host database.
-     *
-     * Recommended use: before displaying posts, using object directly
-     * fetched from database
-     * @param $posts
-     * @return array
-     */
     public function removeBlockedPosts($posts){
         $tagged_posts = $this->checkBlockedPosts($posts);
         $counter = 0;
         foreach($tagged_posts as $post){
-            // if post contains blocked 'true' value, remove from posts
             if($post['blockStatus'] == "0"){
                 unset($tagged_posts[$counter]);
             }
@@ -141,25 +84,20 @@ class ContentManagementLogic
         }
         return $tagged_posts;
     }
-
     public function addBlockedPostReference($postID){
-
+        $this->dl->insertBlockPostReference($postID);
     }
     public function removeBlockedPostReference($postID){
         $this->dl->deleteBlockPostReference($postID);
     }
-    public function getBlockMessageByPostID($postID){
-        return $this->dl->getBlockMessageFromPostID($postID);
-    }
-
     public function saveDeletedPost($userID,$fullName,$postID,$content,$image){
         $this->dl->insertDeletedPost([$userID,$fullName,$postID,$content,$image]);
     }
-    public function getPostIDFromBlockID($blockID){
-        $postID = $this->dl->getPostIDFromBlockID($blockID);
-        return $postID['target'];
+    public function getRecentBlockMessage(){
+        return $this->dl->getRecentBlockMessage();
     }
 
+    //Banning Users from Orgs
     public function getOrgBanStatus($userID){
         return $this->dl->getOrgBanStatus($userID);
     }
@@ -169,13 +107,24 @@ class ContentManagementLogic
     public function AddUserPostToOrg(array $postData){
         $this->dl->insertUserPostToOrg($postData);
     }
+
+    //ID getters and setters
     public function getOrgIDByOrgPost($userID){
         return $this->dl->getOrgIDByOrgPoster($userID);
+    }
+    public function removeBlockMessageByID($msgID){
+        $this->dl->deleteBlockMessageByID($msgID);
+    }
+    public function getBlockMessageByPostID($postID){
+        return $this->dl->getBlockMessageFromPostID($postID);
+    }
+    public function getPostIDFromBlockID($blockID){
+        $postID = $this->dl->getPostIDFromBlockID($blockID);
+        return $postID['target'];
     }
     // end exposed functions
     //-----------------------------------------------------------------------------------------------------------------
 
-    //admin tools
 
     protected function blockPost($postID){
         $this->dl->updatePostBlockedValue([0,$postID]);
@@ -198,8 +147,6 @@ class ContentManagementLogic
     protected function getBlocks(){
         return $this->dl->getBlockMessages();
     }
-
-
 
     //posts
     protected function checkBlockedPosts($standardPostsObject){

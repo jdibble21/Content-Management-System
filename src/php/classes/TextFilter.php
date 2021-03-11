@@ -56,21 +56,4 @@ class TextFilter
         }
         return True;
     }
-
-
-    function addToBlacklist($userInput) {
-
-    }
-
-    function removeFromBlacklist($userInput) {
-
-    }
-
-    function addToWhiteList($userInput) {
-
-    }
-
-    function removeFromWhiteList($userInput) {
-
-    }
 }
