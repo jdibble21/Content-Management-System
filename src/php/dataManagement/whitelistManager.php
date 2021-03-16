@@ -5,4 +5,4 @@ session_start();
 $cms = new ContentManagementLogic();
 
 $word = $_POST['word'];
-$cms->addBlacklistWord($word);
+$cms->addWhitelistWord($word);

@@ -128,7 +128,7 @@ function addWordToWhitelist(word){
         data: {
             word: word
         },
-        url: "/php/contentManagementFilter/whitelistManager.php",
+        url: "/php/contentManagementSystem/Content-Management-System/src/php/dataManagement/whitelistManager.php",
         success: async function () {
             successFunction("Word Added to Whitelist");
         }
