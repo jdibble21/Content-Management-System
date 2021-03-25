@@ -125,8 +125,11 @@ class FilterDataLayer
         return $query->fetchAll();
     }
 
-
     //delete
+    function deleteUserBanEntry(array $banData){
+        $query = $this->conn->prepare("delete from `bannedorgusers` where userID=? and orgID=?");
+        $query->execute($banData);
+    }
     function deleteWhitelistWord($word){
         $query = $this->conn->prepare("delete from `whitelist` where word=?");
         $query->execute([$word]);
