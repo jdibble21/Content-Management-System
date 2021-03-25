@@ -69,6 +69,11 @@ class FilterDataLayer
     }
 
     //select
+    function getOrgBannedUsers($orgID){
+        $query = $this->conn->prepare("select * from bannedorgusers where orgID = ? ");
+        $query->execute([$orgID]);
+        return $query->fetchAll();
+    }
     function getOrgIDByOrgPoster($userID){
         $query = $this->conn->prepare("select orgID from userorgposts where userID = ? ");
         $query->execute([$userID]);
@@ -119,6 +124,7 @@ class FilterDataLayer
         $query->execute();
         return $query->fetchAll();
     }
+
 
     //delete
     function deleteWhitelistWord($word){

@@ -107,7 +107,9 @@ class ContentManagementLogic
     public function AddUserPostToOrg(array $postData){
         $this->dl->insertUserPostToOrg($postData);
     }
-
+    public function getBannedOrgUsers($orgID){
+        return $this->dl->getOrgBannedUsers($orgID);
+    }
     //ID getters and setters
     public function getOrgIDByOrgPost($userID){
         return $this->dl->getOrgIDByOrgPoster($userID);
