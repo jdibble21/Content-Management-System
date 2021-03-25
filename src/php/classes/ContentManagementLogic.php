@@ -67,6 +67,9 @@ class ContentManagementLogic
             $this->generateResolveMessage($message);
         }
     }
+    public function getUserOrgPostIDs($userID,$orgID){
+        return $this->dl->getUserOrgPosts([$userID,$orgID]);
+    }
     public function allowPost($postID){
         $this->dl->updatePostBlockedValue([1,$postID]);
     }

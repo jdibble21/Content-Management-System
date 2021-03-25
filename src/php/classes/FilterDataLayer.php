@@ -69,6 +69,11 @@ class FilterDataLayer
     }
 
     //select
+    function getUserOrgPosts(array $postData){
+        $query = $this->conn->prepare("select * from userorgposts where userID = ? and orgID=?");
+        $query->execute($postData);
+        return $query->fetchAll();
+    }
     function getOrgBannedUsers($orgID){
         $query = $this->conn->prepare("select * from bannedorgusers where orgID = ? ");
         $query->execute([$orgID]);
