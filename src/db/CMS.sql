@@ -52,5 +52,6 @@ DROP TABLE IF EXISTS `userorgposts`;
 CREATE TABLE `userorgposts` (
                                 `postID` INT NOT NULL ,
                                 `userID` INT NOT NULL ,
-                                `orgID` INT NOT NULL
+                                `orgID` INT NOT NULL,
+                                `approved` TINYINT NOT NULL DEFAULT '1'
 );
