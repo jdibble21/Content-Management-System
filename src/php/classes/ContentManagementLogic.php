@@ -67,6 +67,9 @@ class ContentManagementLogic
             $this->generateResolveMessage($message);
         }
     }
+    public function getLimitedApprovedOrgPosts($orgID,$limit){
+        return $this->dl->getLimitedOrgUpdates($orgID,$limit);
+    }
     public function getUserOrgPostIDs($userID,$orgID){
         return $this->dl->getUserOrgPosts([$userID,$orgID]);
     }

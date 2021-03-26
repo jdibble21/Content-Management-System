@@ -69,6 +69,11 @@ class FilterDataLayer
     }
 
     //select
+    function getLimitedOrgUpdates($orgID,$limit){
+        $query = $this->conn->prepare("select postID from userorgposts where orgID = ? and approved = 0 order by postID desc limit ?");
+        $query->execute([$orgID,$limit]);
+        return $query->fetchAll();
+    }
     function getUserOrgPosts(array $postData){
         $query = $this->conn->prepare("select * from userorgposts where userID = ? and orgID=?");
         $query->execute($postData);
