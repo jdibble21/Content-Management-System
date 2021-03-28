@@ -67,6 +67,9 @@ class ContentManagementLogic
             $this->generateResolveMessage($message);
         }
     }
+    public function getUserOrgPostIDs($userID,$orgID){
+        return $this->dl->getUserOrgPosts([$userID,$orgID]);
+    }
     public function allowPost($postID){
         $this->dl->updatePostBlockedValue([1,$postID]);
     }
@@ -104,10 +107,15 @@ class ContentManagementLogic
     public function banUserFromOrg(array $orgBan){
         $this->dl->insertBannedOrgMember($orgBan);
     }
+    public function removeUserOrgBan($userID,$orgID){
+        $this->dl->deleteUserBanEntry([$userID,$orgID]);
+    }
     public function AddUserPostToOrg(array $postData){
         $this->dl->insertUserPostToOrg($postData);
     }
-
+    public function getBannedOrgUsers($orgID){
+        return $this->dl->getOrgBannedUsers($orgID);
+    }
     //ID getters and setters
     public function getOrgIDByOrgPost($userID){
         return $this->dl->getOrgIDByOrgPoster($userID);

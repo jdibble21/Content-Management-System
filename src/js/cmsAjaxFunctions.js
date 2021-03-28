@@ -93,7 +93,26 @@ function adminDeletePost(msgID){
 
         });
 }
+function orgAdminUnBanUser(userID,orgID){
+    alertify.confirm('Unban User', 'Are you sure you wish to un ban this user? This will allow them to see the organization and interact with content once again.',
+        function(){
+            $.ajax({
+                type: "POST",
+                async: false,
+                data: {
+                    userID: userID,
+                    orgID: orgID
+                },
+                url: "/php/contentManagementSystem/Content-Management-System/src/php/adminControls/orgAdminUnBanUser.php",
+                success: async function () {
+                    await successFunction("User Unbanned!");
 
+                },
+            });
+        },function(){
+
+        });
+}
 function allowPost(blockID){
     $.ajax({
         type: "POST",
