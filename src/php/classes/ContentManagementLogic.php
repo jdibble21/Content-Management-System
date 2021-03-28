@@ -122,6 +122,10 @@ class ContentManagementLogic
         $postID = $this->dl->getPostIDFromBlockID($blockID);
         return $postID['target'];
     }
+    public function getBlockIDFromPostID($postID){
+        $blockID = $this->dl->getBlockIDFromPostID($postID);
+        return $blockID['messageID'];
+    }
     // end exposed functions
     //-----------------------------------------------------------------------------------------------------------------
 
