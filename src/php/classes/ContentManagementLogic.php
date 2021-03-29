@@ -95,13 +95,18 @@ class ContentManagementLogic
     public function removeBlockedPostReference($postID){
         $this->dl->deleteBlockPostReference($postID);
     }
+    public function deleteOrgPostReference($postID){
+        $this->dl->deleteOrgPost($postID);
+    }
     public function saveDeletedPost($userID,$fullName,$postID,$content,$image){
         $this->dl->insertDeletedPost([$userID,$fullName,$postID,$content,$image]);
     }
     public function getRecentBlockMessage(){
         return $this->dl->getRecentBlockMessage();
     }
-
+    public function getPendingPost($orgID,$userID){
+        return $this->dl->getOrgPendingPost([$orgID,$userID]);
+    }
     //Banning Users from Orgs
     public function getOrgBanStatus($userID){
         return $this->dl->getOrgBanStatus($userID);

@@ -144,6 +144,11 @@ class FilterDataLayer
         $query->execute();
         return $query->fetchAll();
     }
+    function getOrgPendingPost(array $postData){
+        $query = $this->conn->prepare("select * from userorgposts where orgID=? and userID=? and approved=1 limit 1");
+        $query->execute($postData);
+        return $query->fetch();
+    }
 
     //delete
     function deleteUserBanEntry(array $banData){
@@ -165,6 +170,10 @@ class FilterDataLayer
     function deleteBlockMessageByID($msgID){
         $query = $this->conn->prepare("delete from `blocks` where messageID=?");
         $query->execute([$msgID]);
+    }
+    function deleteOrgPost($postID){
+        $query = $this->conn->prepare("delete from `userorgposts` where postID=?");
+        $query->execute([$postID]);
     }
 
 
