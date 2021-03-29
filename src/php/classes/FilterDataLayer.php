@@ -69,6 +69,11 @@ class FilterDataLayer
     }
 
     //select
+    function getOrgPendingPosts($orgID){
+        $query = $this->conn->prepare("select * from userorgposts where orgID=? and approved=1");
+        $query->execute([$orgID]);
+        return $query->fetchAll();
+    }
     function getDeletedPost($postID){
         $query = $this->conn->prepare("select * from deletedposts where postID = ?");
         $query->execute([$postID]);

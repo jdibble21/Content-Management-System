@@ -124,6 +124,9 @@ class ContentManagementLogic
         return $this->dl->getOrgBannedUsers($orgID);
     }
     //ID getters and setters
+    public function getPendingOrgPostIDs($orgID){
+        return $this->dl->getOrgPendingPosts($orgID);
+    }
     public function getOrgIDByOrgPost($userID){
         return $this->dl->getOrgIDByOrgPoster($userID);
     }
