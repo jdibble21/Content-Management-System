@@ -99,6 +99,11 @@ class FilterDataLayer
         $query->execute([$blockID]);
         return $query->fetch();
     }
+    function getBlockIDFromPostID($msgID){
+        $query = $this->conn->prepare("select messageID from blocks where target = ?");
+        $query->execute([$msgID]);
+        return $query->fetch();
+    }
     function getRecentBlockMessage(){
         $query = $this->conn->prepare("select * from blocks ORDER BY messageID DESC LIMIT 1");
         $query->execute();
