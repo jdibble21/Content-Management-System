@@ -56,17 +56,16 @@ class ContentManagementLogic
     }
     public function getBlockMessages(){
         return $this->getBlocks();
-
+    }
+    public function getDeletedPost($postID){
+        return $this->dl->getDeletedPost($postID);
     }
     public function resolveBlockMessage($msgID,$description){
         $this->dl->updateResolveBlockMessage([0,$description,$msgID]);
     }
-    public function generateResolvedMessageList(){
-        $resolvedMessages = $this->dl->getResolvedBlockMessages();
-        foreach($resolvedMessages as $message){
-            $this->generateResolveMessage($message);
-        }
-    }
+   public function getResolvedBlockMessages(){
+        return $this->dl->getResolvedBlockMessages();
+   }
     public function getLimitedApprovedOrgPosts($orgID,$limit){
         return $this->dl->getLimitedOrgUpdates($orgID,$limit);
     }

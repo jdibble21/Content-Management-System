@@ -69,6 +69,11 @@ class FilterDataLayer
     }
 
     //select
+    function getDeletedPost($postID){
+        $query = $this->conn->prepare("select * from deletedposts where postID = ?");
+        $query->execute([$postID]);
+        return $query->fetch();
+    }
     function getLimitedOrgUpdates($orgID,$limit){
         $query = $this->conn->prepare("select postID from userorgposts where orgID = ? and approved = 0 order by postID desc limit ?");
         $query->execute([$orgID,$limit]);
