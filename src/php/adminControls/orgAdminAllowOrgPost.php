@@ -1,8 +1,9 @@
 <?php
+include_once '../../../../../classes/businessLogic.php';
 session_start();
-$cml = new ContentManagementLogic();
+$bl = new businessLogic();
 
 $postID = $_POST['postID'];
 
-$cml->allowUserOrgPost($postID);
+$bl->cms->allowUserOrgPost($postID);
 
