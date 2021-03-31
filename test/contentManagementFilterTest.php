@@ -48,4 +48,7 @@ class contentManagementFilterTest extends TestCase{
         $testDetect = $this->cms->checkInputForProfanity("bannedwordtest should allow this");
         $this->assertEquals(True,$testDetect);
     }
+    public function testInsertOrgPost(){
+        $this->cms->AddUserPostToOrg([999,999,999]);
+    }
 }
