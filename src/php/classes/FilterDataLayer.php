@@ -165,6 +165,10 @@ class FilterDataLayer
     }
 
     //delete
+    function deleteOrgPendingPost($postID){
+        $query = $this->conn->prepare("delete from `userorgposts` where postID=?");
+        $query->execute([$postID]);
+    }
     function deleteUserBanEntry(array $banData){
         $query = $this->conn->prepare("delete from `bannedorgusers` where userID=? and orgID=?");
         $query->execute($banData);

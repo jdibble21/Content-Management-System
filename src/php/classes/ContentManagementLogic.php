@@ -129,6 +129,9 @@ class ContentManagementLogic
     public function allowUserOrgPost($postID){
         $this->dl->updateApproveOrgPost($postID);
     }
+    public function denyOrgPost($postID){
+        $this->dl->deleteOrgPendingPost($postID);
+    }
     public function checkForPendingPost($orgID,$userID){
         $data = $this->dl->getOrgPendingPost([$orgID,$userID]);
         if($data['postID'] != ""){
@@ -138,7 +141,11 @@ class ContentManagementLogic
     }
     //ID getters and setters
     public function getPendingOrgPostIDs($orgID){
-        return $this->dl->getOrgPendingPosts($orgID);
+        $ids =  $this->dl->getOrgPendingPosts($orgID);
+        if ($ids == null){
+            echo "<p>No pending posts to review</p>";
+        }
+        return $ids;
     }
     public function getOrgIDByOrgPost($userID){
         return $this->dl->getOrgIDByOrgPoster($userID);

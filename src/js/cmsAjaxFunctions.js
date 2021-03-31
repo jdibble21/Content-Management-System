@@ -138,6 +138,19 @@ function orgAdminAllowOrgPost(postID){
         }
     });
 }
+function orgAdminDenyOrgPost(postID){
+    $.ajax({
+        type: "POST",
+        async: false,
+        data: {
+            postID: postID
+        },
+        url: "/php/contentManagementSystem/Content-Management-System/src/php/adminControls/orgAdminDenyOrgPost.php",
+        success: async function () {
+            successFunction("Post Denied!");
+        }
+    });
+}
 function addWordToBlacklist(word){
     $.ajax({
         type: "POST",
