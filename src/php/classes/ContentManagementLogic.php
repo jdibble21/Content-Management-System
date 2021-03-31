@@ -69,6 +69,9 @@ class ContentManagementLogic
     public function getLimitedApprovedOrgPosts($orgID,$limit){
         return $this->dl->getLimitedOrgUpdates($orgID,$limit);
     }
+    public function getApprovedOrgPosts($orgID){
+        return $this->dl->getOrgUpdates($orgID);
+    }
     public function getUserOrgPostIDs($userID,$orgID){
         return $this->dl->getUserOrgPosts([$userID,$orgID]);
     }
@@ -122,6 +125,16 @@ class ContentManagementLogic
     }
     public function getBannedOrgUsers($orgID){
         return $this->dl->getOrgBannedUsers($orgID);
+    }
+    public function allowUserOrgPost($postID){
+        $this->dl->updateApproveOrgPost($postID);
+    }
+    public function checkForPendingPost($orgID,$userID){
+        $data = $this->dl->getOrgPendingPost([$orgID,$userID]);
+        if($data['postID'] != ""){
+            return true;
+        }
+        return false;
     }
     //ID getters and setters
     public function getPendingOrgPostIDs($orgID){

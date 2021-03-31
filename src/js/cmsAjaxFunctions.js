@@ -125,7 +125,19 @@ function allowPost(blockID){
         }
     });
 }
-
+function orgAdminAllowOrgPost(postID){
+    $.ajax({
+        type: "POST",
+        async: false,
+        data: {
+            postID: postID
+        },
+        url: "/php/contentManagementSystem/Content-Management-System/src/php/adminControls/orgAdminAllowOrgPost.php",
+        success: async function () {
+            successFunction("Post Allowed!");
+        }
+    });
+}
 function addWordToBlacklist(word){
     $.ajax({
         type: "POST",

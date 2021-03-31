@@ -67,6 +67,10 @@ class FilterDataLayer
         $query = $this->conn->prepare("update blocks set resolved=?,resolution=? where messageID=?");
         $query->execute($resolve);
     }
+    function updateApproveOrgPost($postID){
+        $query = $this->conn->prepare("update userorgposts set approved=0 where postID=?");
+        $query->execute([$postID]);
+    }
 
     //select
     function getOrgPendingPosts($orgID){
@@ -82,6 +86,11 @@ class FilterDataLayer
     function getLimitedOrgUpdates($orgID,$limit){
         $query = $this->conn->prepare("select postID from userorgposts where orgID = ? and approved = 0 order by postID desc limit ?");
         $query->execute([$orgID,$limit]);
+        return $query->fetchAll();
+    }
+    function getOrgUpdates($orgID){
+        $query = $this->conn->prepare("select postID from userorgposts where orgID = ? and approved = 0 order by postID desc");
+        $query->execute([$orgID]);
         return $query->fetchAll();
     }
     function getUserOrgPosts(array $postData){
