@@ -60,6 +60,10 @@ class FilterDataLayer
         $query = $this->conn->prepare("insert into flags (flagType, userID, resolution, target) value (?,?,?,?)");
         $query->execute($flag);
     }
+    function insertOrgBlacklistWord($word, $orgID){
+        $query = $this->conn->prepare("insert into `orgblacklist` (word, dateAdded, orgID) values (?,NOW(),?)");
+        $query->execute([$word, $orgID]);
+    }
 
     //update
 

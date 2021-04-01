@@ -48,7 +48,18 @@ class ContentManagementLogic
     public function removeBlacklistWord($word){
         $this->dl->deleteBlacklistWord($word);
     }
-    
+
+    //Custom Org Blacklists
+    public function generateCurrentOrgBlacklist($orgID){
+        $words = $this->tf->getOrgBlacklist($orgID);
+        foreach ($words as $word){
+            $this->generateBlacklistWord($word);
+        }
+    }
+    public function addOrgBlacklistWord($word,$orgID){
+        $this->dl->insertOrgBlacklistWord($word, $orgID);
+    }
+
    //Blocked posts and related functions
     public function createBlockMessage($postID,$blockReason){
         $this->addBlockedPostReference($postID);
