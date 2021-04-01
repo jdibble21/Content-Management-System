@@ -56,6 +56,10 @@ class FilterDataLayer
         $query = $this->conn->prepare("insert into bannedorgusers (userID, orgID) values (?,?)");
         $query->execute($bannedUser);
     }
+    function insertFlag(array $flag){
+        $query = $this->conn->prepare("insert into flags (flagType, userID, resolution, target) value (?,?,?,?)");
+        $query->execute($flag);
+    }
 
     //update
 
@@ -162,6 +166,11 @@ class FilterDataLayer
         $query = $this->conn->prepare("select * from userorgposts where orgID=? and userID=? and approved=1 limit 1");
         $query->execute($postData);
         return $query->fetch();
+    }
+    function getOrgBlacklist($orgID){
+        $query = $this->conn->prepare("select * from `orgblacklist` where orgID=?");
+        $query->execute([$orgID]);
+        return $query->fetchAll();
     }
 
     //delete
