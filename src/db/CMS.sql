@@ -55,6 +55,12 @@ CREATE TABLE `userorgposts` (
                                 `orgID` INT NOT NULL,
                                 `approved` TINYINT NOT NULL DEFAULT '1'
 );
+DROP TABLE IF EXISTS `blacklist`;
+CREATE TABLE `blacklist` (
+                             `wordID` int(11) NOT NULL auto_increment primary key,
+                             `word` varchar(255) NOT NULL,
+                             `dateAdded` datetime NOT NULL DEFAULT current_timestamp()
+);
 
 DROP TABLE IF EXISTS `orgblacklist`;
 CREATE TABLE `orgblacklist` (

@@ -177,4 +177,44 @@ function addWordToWhitelist(word){
             successFunction("Word Added to Whitelist");
         }
     });
+
+
+}
+
+function addToOrgBlacklist(word, orgID) {
+    $.ajax({
+        type: "POST",
+        async: false,
+        data: {
+            word: word,
+            orgID: orgID
+        },
+        url: "/php/Content-Management-System/src/php/dataManagement/orgBlacklistManager.php",
+        success: async function () {
+            successFunction("Word Added to Blacklist");
+        }
+    });
+
+}
+
+function deleteOrgFlag(postID, flagID, userID) {
+    alertify.confirm('Before You Delete', 'Are you sure you wish to delete this post? There is no way to get it back after.',
+        function(){
+            $.ajax({
+                type: "POST",
+                async: false,
+                data: {
+                    postID: postID,
+                    flagID: flagID,
+                    userID: userID
+
+                },
+                url: "php/Content-Management-System/src/php/adminControls/deleteFlaggedPost.php",
+                success: async function () {
+                    await successFunction("Deleted Successfully!");
+                },
+            });
+        },function(){
+
+        });
 }
