@@ -32,7 +32,7 @@ class FilterDataLayer
         $query->execute([$postID]);
     }
     function insertUserPostToOrg(array $postData){
-        $query = $this->conn->prepare("insert into userorgposts (postID, userID, orgID) values (?,?,?)");
+        $query = $this->conn->prepare("insert into userorgposts (postID, userID, orgID, approved) values (?,?,?,?)");
         $query->execute($postData);
     }
     function insertBlockMessage(array $msgData){
