@@ -131,8 +131,8 @@ class ContentManagementLogic
     public function removeUserOrgBan($userID,$orgID){
         $this->dl->deleteUserBanEntry([$userID,$orgID]);
     }
-    public function AddUserPostToOrg(array $postData){
-        $this->dl->insertUserPostToOrg($postData);
+    public function AddUserPostToOrg($postID,$userID,$orgID,$approved=1){
+        $this->dl->insertUserPostToOrg([$postID,$userID,$orgID,$approved]);
     }
     public function getBannedOrgUsers($orgID){
         return $this->dl->getOrgBannedUsers($orgID);
