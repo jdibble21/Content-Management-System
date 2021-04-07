@@ -73,10 +73,11 @@ class TextFilter
     }
 
     function checkForProfanityOrg($UserInput, $orgID){
+        $UserInput = strip_tags($UserInput);
         $isClean = $this->checkForProfanityInWords($UserInput);
         $input_array = explode(" ",$UserInput);
         for ($i=0; $i < count($input_array); $i++){
-            if($this->checkOrgList($i,$orgID) == False){
+            if($this->checkOrgList($input_array[$i],$orgID) == False){
                 $isClean = False;
             }
         }

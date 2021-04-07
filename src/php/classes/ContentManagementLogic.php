@@ -77,6 +77,10 @@ class ContentManagementLogic
         $this->dl->insertOrgBlacklistWord($word, $orgID);
     }
 
+    public function checkOrgProfanity($input, $orgID){
+        return $this->tf->checkForProfanityOrg($input, $orgID);
+    }
+
    //Blocked posts and related functions
     public function createBlockMessage($postID,$blockReason){
         $this->addBlockedPostReference($postID);
