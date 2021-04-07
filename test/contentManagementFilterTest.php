@@ -17,17 +17,6 @@ class contentManagementFilterTest extends TestCase{
         $this->assertEquals(False,$testDetect);
     }
 
-    public function testAddBlockMessageFromFilterBlock(){
-        $postID = 9999;
-        $input = "shit input here";
-        $filterValue = $this->cms->checkInputForProfanity($input);
-        if($filterValue == False){
-            $this->cms->createBlockMessage($postID,"TEST profanity detected from user input TEST");
-        }
-        $selectedBlockMsg = $this->cms->getBlockMessageByPostID($postID);
-        $this->assertEquals("TEST profanity detected from user input TEST",$selectedBlockMsg['blockReason']);
-    }
-
     public function testAddWhitelistWord(){
         $this->cms->addWhitelistWord("allowfuckword");
         $testDetect = $this->cms->checkInputForProfanity("allowfuckword should allow this");
@@ -47,8 +36,5 @@ class contentManagementFilterTest extends TestCase{
         $this->cms->removeBlacklistWord("bannedwordtest");
         $testDetect = $this->cms->checkInputForProfanity("bannedwordtest should allow this");
         $this->assertEquals(True,$testDetect);
-    }
-    public function testInsertOrgPost(){
-        $this->cms->AddUserPostToOrg([999,999,999]);
     }
 }

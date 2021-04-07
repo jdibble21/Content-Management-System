@@ -13,7 +13,24 @@ class ContentManagementLogic
 
     //exposed functions to library user
     //------------------------------------------------------------------------------------------------------------------
-
+    //Posts
+    public function cleanPostFeed($updates){
+        $blockedPosts = $this->dl->getBlockedPosts();
+        for($i = 0; $i < sizeof($updates); $i++){
+            $blocked=false;
+            for($j = 0; $j < sizeof($blockedPosts); $j++){
+                if($updates[$i]['postID'] == $blockedPosts[$j]['postID']){
+                    array_push($updates[$i],"block");
+                    $blocked=true;
+                    break;
+                }
+            }
+            if(!$blocked){
+                array_push($updates[$i],"safe");
+            }
+        }
+        return $updates;
+    }
     //Text Filter functions
     public function checkInputForProfanity($input){
         return $this->tf->checkForProfanityInWords($input);
@@ -92,17 +109,7 @@ class ContentManagementLogic
     public function appealBlock($postID, $appealMessage){
         $this->dl->updateBlockedMessageAppeal([0, $appealMessage, $postID]);
     }
-    public function removeBlockedPosts($posts){
-        $tagged_posts = $this->checkBlockedPosts($posts);
-        $counter = 0;
-        foreach($tagged_posts as $post){
-            if($post['blockStatus'] == "0"){
-                unset($tagged_posts[$counter]);
-            }
-            $counter++;
-        }
-        return $tagged_posts;
-    }
+
     public function addBlockedPostReference($postID){
         $this->dl->insertBlockPostReference($postID);
     }
@@ -201,7 +208,6 @@ class ContentManagementLogic
         return $this->dl->getBlockMessages();
     }
 
-    //posts
     protected function checkBlockedPosts($standardPostsObject){
         $blockedPostArray = $this->getBlockPosts();
         $blockValue = $this->getArrayValue($standardPostsObject['postID'],$blockedPostArray);
