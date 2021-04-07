@@ -16,7 +16,12 @@ class TextFilter
         return $this->dl->getBlacklist();
     }
 
+    function getOrgBlacklist($orgID){
+        return $this->dl->getOrgBlacklist($orgID);
+    }
+
     function checkForProfanityInWords($UserInput){
+        $UserInput = strip_tags($UserInput);
         $input_array = explode(" ",$UserInput);
         $isClean = True;
 
@@ -55,5 +60,26 @@ class TextFilter
             }
         }
         return True;
+    }
+
+    function checkOrgList($word, $orgID){
+        $blacklist = $this->getOrgBlacklist($orgID);
+        foreach($blacklist as $blacklistEntry){
+            if(strtolower($word) == strtolower($blacklistEntry['word'])){
+                return False;
+            }
+        }
+        return True;
+    }
+
+    function checkForProfanityOrg($UserInput, $orgID){
+        $isClean = $this->checkForProfanityInWords($UserInput);
+        $input_array = explode(" ",$UserInput);
+        for ($i=0; $i < count($input_array); $i++){
+            if($this->checkOrgList($i,$orgID) == False){
+                $isClean = False;
+            }
+        }
+        return $isClean;
     }
 }
