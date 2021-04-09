@@ -38,6 +38,7 @@ function resolve(msgID,type,option) {
         adminDeletePost(msgID);
     }
 }
+
 function orgAdminDeletePost(postID) {
     alertify.confirm('Before You Delete', 'Are you sure you wish to delete this post? There is no way to get it back after.',
         function(){
@@ -56,6 +57,7 @@ function orgAdminDeletePost(postID) {
 
         });
 }
+
 function deleteUserByBlockMsgID(blockID){
     alertify.confirm('<p>Deleting an account cannot be undone. Are you sure?</p>', function(e){
         if(e){
@@ -74,6 +76,7 @@ function deleteUserByBlockMsgID(blockID){
     })
 
 }
+
 function adminDeletePost(msgID){
     alertify.confirm('Before You Delete', 'Are you sure you wish to delete this post? There is no way to get it back after.',
         function(){
@@ -93,6 +96,7 @@ function adminDeletePost(msgID){
 
         });
 }
+
 function orgAdminUnBanUser(userID,orgID){
     alertify.confirm('Unban User', 'Are you sure you wish to un ban this user? This will allow them to see the organization and interact with content once again.',
         function(){
@@ -113,6 +117,7 @@ function orgAdminUnBanUser(userID,orgID){
 
         });
 }
+
 function allowPost(blockID){
     $.ajax({
         type: "POST",
@@ -125,6 +130,7 @@ function allowPost(blockID){
         }
     });
 }
+
 function orgAdminAllowOrgPost(postID){
     $.ajax({
         type: "POST",
@@ -138,6 +144,7 @@ function orgAdminAllowOrgPost(postID){
         }
     });
 }
+
 function orgAdminDenyOrgPost(postID){
     $.ajax({
         type: "POST",
@@ -151,6 +158,7 @@ function orgAdminDenyOrgPost(postID){
         }
     });
 }
+
 function addWordToBlacklist(word){
     $.ajax({
         type: "POST",
@@ -195,4 +203,27 @@ function addToOrgBlacklist(word, orgID) {
         }
     });
 
+}
+
+function appealBlock(postID) {
+    alertify.confirm('Appeal Blocked Message','<p>Are you sure you wish to appeal this post?</p><p>Please Provide A Reason:</p>' +
+        '<input type="text" id="appealReason" placeholder="Why this should be allowed">', function() {
+            if (document.getElementById('appealReason').value.trim() !== "") {
+                $.ajax({
+                    type: "POST",
+//                async: false,
+                    data: {
+                        postID: postID,
+                        reason: document.getElementById('appealReason').value
+                    },
+                    url: "/php/contentManagementSystem/Content-Management-System/src/php/dataManagement/appealPost.php",
+                    success: async function () {
+                        await successFunction("Appeal Sent!", '');
+                    }
+                });
+            }
+        },
+        function () {
+
+        });
 }
