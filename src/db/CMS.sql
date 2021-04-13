@@ -71,7 +71,7 @@ CREATE TABLE `orgblacklist` (
 );
 DROP TABLE IF EXISTS `blockedimages`;
 CREATE TABLE `blockedimages` (
-                                 `postID` int(11) NOT NULL,
+                                 `postID` int(11) NOT NULL primary key,
                                  `blockReason` varchar(255) NOT NULL,
-                                 `blockValue` int(11) NOT NULL
+                                 `blockValue` varchar(255) NOT NULL
 );
