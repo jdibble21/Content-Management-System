@@ -1,6 +1,12 @@
 // Auto blurs image if inappropriate content is detected, and creates block message for admin review
-function blurImage(img) {
-    img.style.filter='blur(50px)';
+
+function blurImages() {
+    const imgArray = document.getElementsByClassName('blurBlockedImage')
+    for (let i = 0; i < imgArray.length; i++) {
+        const img = imgArray[i]
+        img.crossOrigin = "anonymous"
+        img.style.filter='blur(30px)';
+    }
 }
 function unblurImages() {
     const imgArray = document.getElementsByClassName('filter')
