@@ -85,6 +85,11 @@ class FilterDataLayer
     }
 
     //select
+    function getBlockedImageData($postID){
+        $query = $this->conn->prepare("select * from blockedimages where postID = ?");
+        $query->execute([$postID]);
+        return $query->fetch();
+    }
     function getOrgPendingPosts($orgID){
         $query = $this->conn->prepare("select * from userorgposts where orgID=? and approved=1");
         $query->execute([$orgID]);
