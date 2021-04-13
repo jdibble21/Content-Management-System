@@ -29,7 +29,7 @@ function analyzeImage(){
 }
 function Analyze() {
     //checkImage
-    const imgArray = document.getElementsByClassName('filter')
+    const imgArray = document.getElementsByClassName('checkImage')
     for (let i = 0; i < imgArray.length; i++) {
         const img = imgArray[i]
         img.crossOrigin = "anonymous"
@@ -39,17 +39,21 @@ function Analyze() {
             })
             .then(function (predictions) {
                 console.log('Analyzed Image: ' + img.src, predictions)
-                alert('Analyzed Image: ' + img.src + predictions);
+                //alert('Analyzed Image: ' + img.src + predictions);
                 if(
-                    predictions[0].className=='Hentai' || predictions[0].className=='Porn' || predictions[0].className=='Sexy'
+                    (predictions[0].className=='Hentai' || predictions[0].className=='Porn' || predictions[0].className=='Sexy')
                     && predictions[0].probability >= 0.8
                 ){
-                    blurImage(img);
-                    console.log('Blurred Image: ' + img.src)
-                    //Ajax here to block post and create block message
+                    //blurImage(img);
+                    const probability = predictions[0].probability;
+                    const imgBlock = document.getElementById('imageBlock');
+                    const imageReason = document.getElementById('imageReason');
+                    const imageBlockValue = document.getElementById('imageBlockValue');
 
+                    imgBlock.value = "0";
+                    imageReason.value = predictions[0].className;
+                    imageBlockValue.value = probability;
                 }
-
             })
     }
 }

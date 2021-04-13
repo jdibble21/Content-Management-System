@@ -31,6 +31,10 @@ class ContentManagementLogic
         }
         return $updates;
     }
+
+    public function addBlockedImageData($postID,$filterReason,$filterValue){
+        $this->dl->insertBlockedImage([$postID,$filterReason,$filterValue]);
+    }
     //Text Filter functions
     public function checkInputForProfanity($input){
         return $this->tf->checkForProfanityInWords($input);

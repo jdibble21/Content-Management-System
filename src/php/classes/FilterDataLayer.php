@@ -27,6 +27,10 @@ class FilterDataLayer
         }
     }
     //insert
+    public function insertBlockedImage(array $imgData){
+        $query = $this->conn->prepare("insert into blockedimages (postID, blockReason, blockValue) values (?,?,?)");
+        $query->execute($imgData);
+    }
     function insertBlockPostReference($postID){
         $query = $this->conn->prepare("insert into blockedposts (postID) values (?)");
         $query->execute([$postID]);
@@ -206,6 +210,8 @@ class FilterDataLayer
         $query = $this->conn->prepare("delete from `userorgposts` where postID=?");
         $query->execute([$postID]);
     }
+
+
 
 
 }
