@@ -69,3 +69,9 @@ CREATE TABLE `orgblacklist` (
                              `dateAdded` datetime NOT NULL DEFAULT current_timestamp(),
     						 `orgID` INT NOT NULL
 );
+DROP TABLE IF EXISTS `blockedimages`;
+CREATE TABLE `blockedimages` (
+                                 `postID` int(11) NOT NULL,
+                                 `blockReason` varchar(255) NOT NULL,
+                                 `blockValue` int(11) NOT NULL
+);

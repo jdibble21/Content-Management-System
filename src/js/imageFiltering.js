@@ -11,7 +11,24 @@ function unblurImages() {
     }
 }
 
+function analyzeImage(){
+    //alert("change detected");
+    const preview = document.querySelector("[id='imageCheck']");
+    const file = document.querySelector('input[type=file]').files[0];
+    const reader = new FileReader();
+
+    reader.addEventListener("load", function () {
+        // convert image file to base64 string
+        preview.src = reader.result;
+    }, false);
+
+    if (file) {
+        reader.readAsDataURL(file);
+    }
+    Analyze();
+}
 function Analyze() {
+    //checkImage
     const imgArray = document.getElementsByClassName('filter')
     for (let i = 0; i < imgArray.length; i++) {
         const img = imgArray[i]
@@ -22,6 +39,7 @@ function Analyze() {
             })
             .then(function (predictions) {
                 console.log('Analyzed Image: ' + img.src, predictions)
+                alert('Analyzed Image: ' + img.src + predictions);
                 if(
                     predictions[0].className=='Hentai' || predictions[0].className=='Porn' || predictions[0].className=='Sexy'
                     && predictions[0].probability >= 0.8
@@ -29,6 +47,7 @@ function Analyze() {
                     blurImage(img);
                     console.log('Blurred Image: ' + img.src)
                     //Ajax here to block post and create block message
+
                 }
 
             })
