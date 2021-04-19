@@ -31,7 +31,9 @@ class ContentManagementLogic
         }
         return $updates;
     }
-
+    public function resolveUserContentData($userID){
+        $this->dl->deleteAllUserBanEntries($userID);
+    }
     public function addBlockedImageData($postID,$filterReason,$filterValue){
         $this->dl->insertBlockedImage([$postID,$filterReason,$filterValue]);
     }

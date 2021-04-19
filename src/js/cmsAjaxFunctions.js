@@ -96,7 +96,30 @@ function adminDeletePost(msgID){
 
         });
 }
-
+function checkBanUserExists(username){
+    $.ajax({
+        type: "POST",
+        async: false,
+        data: {
+            username: username,
+        },
+        url: "/php/contentManagementSystem/Content-Management-System/src/php/dataManagement/checkIfUserExists.php",
+        success: async function () {
+            $.ajax({
+                url:"/php/contentManagementSystem/Content-Management-System/src/php/responseData/checkIfUserExistsResponse.php",
+                cache:false,
+                success:function(data){
+                    if(data == "0"){
+                        successFunction("Banned User!");
+                        document.getElementById('banUserModalForm').submit();
+                    }else{
+                        errorFunction("User not found!",'');
+                    }
+                }
+            });
+        }
+    });
+}
 function orgAdminUnBanUser(userID,orgID){
     alertify.confirm('Unban User', 'Are you sure you wish to un ban this user? This will allow them to see the organization and interact with content once again.',
         function(){

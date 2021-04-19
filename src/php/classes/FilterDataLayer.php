@@ -200,6 +200,10 @@ class FilterDataLayer
         $query = $this->conn->prepare("delete from `bannedorgusers` where userID=? and orgID=?");
         $query->execute($banData);
     }
+    function deleteAllUserBanEntries($userID){
+        $query = $this->conn->prepare("delete from `bannedorgusers` where userID=?");
+        $query->execute([$userID]);
+    }
     function deleteWhitelistWord($word){
         $query = $this->conn->prepare("delete from `whitelist` where word=?");
         $query->execute([$word]);
@@ -220,8 +224,4 @@ class FilterDataLayer
         $query = $this->conn->prepare("delete from `userorgposts` where postID=?");
         $query->execute([$postID]);
     }
-
-
-
-
 }

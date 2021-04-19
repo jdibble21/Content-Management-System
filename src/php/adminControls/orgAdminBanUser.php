@@ -10,7 +10,7 @@ $userID = $bl->getUserIDByUsername($username);
 
 if ($bl->isAdmin($orgID,$_SESSION['id'])) {
     $bl->banUserFromOrg($userID,$orgID);
-    header("Location: /Pages/organization/orgPage.php?orgID=$orgID");
+    header("Location: /Pages/organization/manageOrg.php?orgID=$orgID&tab=USERS");
 }
 else {
     http_response_code(401);
