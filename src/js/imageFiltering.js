@@ -1,5 +1,4 @@
-// Auto blurs image if inappropriate content is detected, and creates block message for admin review
-
+// Implements nsfw prediction model
 function blurImages() {
     const imgArray = document.getElementsByClassName('blurBlockedImage')
     for (let i = 0; i < imgArray.length; i++) {
@@ -8,7 +7,7 @@ function blurImages() {
         img.style.filter='blur(30px)';
     }
 }
-function unblurImages() {
+function unBlurImages() {
     const imgArray = document.getElementsByClassName('filter')
     for (let i = 0; i < imgArray.length; i++) {
         const img = imgArray[i]
@@ -31,9 +30,9 @@ function analyzeImage(){
     if (file) {
         reader.readAsDataURL(file);
     }
-    Analyze();
+    analyze();
 }
-function Analyze() {
+function analyze() {
     //checkImage
     const imgArray = document.getElementsByClassName('checkImage')
     for (let i = 0; i < imgArray.length; i++) {
@@ -48,7 +47,7 @@ function Analyze() {
                 //alert('Analyzed Image: ' + img.src + predictions);
                 if(
                     (predictions[0].className=='Hentai' || predictions[0].className=='Porn' || predictions[0].className=='Sexy')
-                    && predictions[0].probability >= 0.8
+                    && predictions[0].probability >= 0.5
                 ){
                     //blurImage(img);
                     const probability = predictions[0].probability;

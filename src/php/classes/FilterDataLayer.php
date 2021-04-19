@@ -90,6 +90,11 @@ class FilterDataLayer
         $query->execute([$postID]);
         return $query->fetch();
     }
+    function getOrgPostByPostID($postID){
+        $query = $this->conn->prepare("select * from userorgposts where postID = ?");
+        $query->execute([$postID]);
+        return $query->fetch();
+    }
     function getOrgPendingPosts($orgID){
         $query = $this->conn->prepare("select * from userorgposts where orgID=? and approved=1");
         $query->execute([$orgID]);

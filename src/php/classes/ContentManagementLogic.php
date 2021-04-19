@@ -141,6 +141,9 @@ class ContentManagementLogic
     public function getPendingPost($orgID,$userID){
         return $this->dl->getOrgPendingPost([$orgID,$userID]);
     }
+    public function getApprovedPost($postID){
+        return $this->dl->getOrgPostByPostID($postID);
+    }
     //Banning Users from Orgs
     public function getOrgBanStatus($userID){
         return $this->dl->getOrgBanStatus($userID);
