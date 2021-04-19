@@ -27,6 +27,10 @@ class FilterDataLayer
         }
     }
     //insert
+    function insertOrgSettings($orgID){
+        $query = $this->conn->prepare("insert into orgcontentoptions (orgID) values (?)");
+        $query->execute([$orgID]);
+    }
     public function insertBlockedImage(array $imgData){
         $query = $this->conn->prepare("insert into blockedimages (postID, blockReason, blockValue) values (?,?,?)");
         $query->execute($imgData);
@@ -85,6 +89,11 @@ class FilterDataLayer
     }
 
     //select
+    function getOrgContentSettings($orgID){
+        $query = $this->conn->prepare("select * from orgcontentoptions where orgID = ?");
+        $query->execute([$orgID]);
+        return $query->fetch();
+    }
     function getBlockedImageData($postID){
         $query = $this->conn->prepare("select * from blockedimages where postID = ?");
         $query->execute([$postID]);

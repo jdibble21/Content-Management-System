@@ -75,3 +75,9 @@ CREATE TABLE `blockedimages` (
                                  `blockReason` varchar(255) NOT NULL,
                                  `blockValue` varchar(255) NOT NULL
 );
+DROP TABLE IF EXISTS `orgcontentoptions`;
+CREATE TABLE `orgcontentoptions` (
+                                  `orgID` int(11) NOT NULL primary key,
+                                  `enablePostApproval` int(11) NOT NULL DEFAULT 1,
+                                  `enableBlacklist` int(11) NOT NULL DEFAULT 1
+)

@@ -31,17 +31,18 @@ class ContentManagementLogic
         }
         return $updates;
     }
-    public function resolveUserContentData($userID){
-        $this->dl->deleteAllUserBanEntries($userID);
-    }
-    public function addBlockedImageData($postID,$filterReason,$filterValue){
-        $this->dl->insertBlockedImage([$postID,$filterReason,$filterValue]);
-    }
     public function getBlockedImageData($postID){
         $data = $this->dl->getBlockedImageData($postID);
         $format_value = floatval($data['blockValue'])*100;
         return [$data['blockReason'],round($format_value,2)];
     }
+    public function addBlockedImageData($postID,$filterReason,$filterValue){
+        $this->dl->insertBlockedImage([$postID,$filterReason,$filterValue]);
+    }
+    public function resolveUserContentData($userID){
+        $this->dl->deleteAllUserBanEntries($userID);
+    }
+
     //Text Filter functions
     public function checkInputForProfanity($input){
         return $this->tf->checkForProfanityInWords($input);
@@ -92,6 +93,13 @@ class ContentManagementLogic
         return $this->tf->checkForProfanityOrg($input, $orgID);
     }
 
+    public function createOrgSettings($orgID){
+        $this->dl->insertOrgSettings($orgID);
+    }
+    public function getOrgContentSettings($orgID){
+        $settings = $this->dl->getOrgContentSettings($orgID);
+        return [$settings['enablePostApproval'],$settings['enableBlacklist']];
+    }
    //Blocked posts and related functions
     public function createBlockMessage($postID,$blockReason){
         $this->addBlockedPostReference($postID);
