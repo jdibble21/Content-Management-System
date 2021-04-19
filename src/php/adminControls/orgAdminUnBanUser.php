@@ -6,4 +6,4 @@ $bl = new businessLogic();
 $userID = $_POST['userID'];
 $orgID = $_POST['orgID'];
 $bl->unBanUserFromOrg($userID,$orgID);
-header("Location: /Pages/organization/orgPage.php?orgID=$orgID");
+header("Location: /Pages/organization/manageOrg.php?orgID=$orgID&tab=USERS");

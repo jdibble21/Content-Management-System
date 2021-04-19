@@ -100,6 +100,12 @@ class ContentManagementLogic
         $settings = $this->dl->getOrgContentSettings($orgID);
         return [$settings['enablePostApproval'],$settings['enableBlacklist']];
     }
+    public function enableOrgPostApproval($orgID){
+        $this->dl->updateEnableOrgPostApproval($orgID);
+    }
+    public function disableOrgPostApproval($orgID){
+        $this->dl->updateDisableOrgPostApproval($orgID);
+    }
    //Blocked posts and related functions
     public function createBlockMessage($postID,$blockReason){
         $this->addBlockedPostReference($postID);

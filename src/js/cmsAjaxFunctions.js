@@ -27,6 +27,32 @@ async function errorFunction(string,reload='reload') {
     }
 }
 
+function toggleOrgPostApproval(isEnabled,orgID){
+    if(isEnabled){
+        $.ajax({
+            type: "POST",
+            data: {
+                orgID: orgID,
+            },
+            url: "/php/contentManagementSystem/Content-Management-System/src/php/adminControls/orgAdminEnablePostApproval.php",
+            success(){
+                successFunction("Enabled Post Approval!");
+            }
+        });
+    } else if(!isEnabled){
+        $.ajax({
+            type: "POST",
+            data: {
+                orgID: orgID,
+            },
+            url: "/php/contentManagementSystem/Content-Management-System/src/php/adminControls/orgAdminDisablePostApproval.php",
+            success(){
+                successFunction("Disabled Post Approval!");
+            }
+        });
+    }
+}
+
 function resolve(msgID,type,option) {
     if(option == "Delete User"){
         deleteUserByBlockMsgID(msgID);
