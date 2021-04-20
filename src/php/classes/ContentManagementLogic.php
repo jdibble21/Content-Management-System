@@ -100,11 +100,26 @@ class ContentManagementLogic
         $settings = $this->dl->getOrgContentSettings($orgID);
         return [$settings['enablePostApproval'],$settings['enableBlacklist']];
     }
+    public function checkOrgApprovalEnabled($orgID){
+        $enabled = $this->dl->getOrgContentSettings($orgID);
+        if($enabled['enablePostApproval'] == "0"){
+            return true;
+        }else{
+            return false;
+        }
+    }
     public function enableOrgPostApproval($orgID){
         $this->dl->updateEnableOrgPostApproval($orgID);
     }
     public function disableOrgPostApproval($orgID){
         $this->dl->updateDisableOrgPostApproval($orgID);
+        $this->dl->updateApproveAllOrgPosts($orgID);
+    }
+    public function enableOrgBlacklist($orgID){
+        $this->dl->updateEnableOrgBlacklist($orgID);
+    }
+    public function disableOrgBlacklist($orgID){
+        $this->dl->updateDisableOrgBlacklist($orgID);
     }
    //Blocked posts and related functions
     public function createBlockMessage($postID,$blockReason){
@@ -196,6 +211,9 @@ class ContentManagementLogic
             echo "<p>No pending posts to review</p>";
         }
         return $ids;
+    }
+    public function checkForOrgPendingPosts($orgID){
+        return $this->dl->getOrgPendingPosts($orgID);
     }
     public function getOrgIDByOrgPost($userID){
         return $this->dl->getOrgIDByOrgPoster($userID);

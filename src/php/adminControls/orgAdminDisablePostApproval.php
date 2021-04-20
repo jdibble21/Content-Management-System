@@ -4,4 +4,5 @@ session_start();
 $bl = new businessLogic();
 
 $orgID = $_POST['orgID'];
+
 $bl->disableOrgPostApproval($orgID);

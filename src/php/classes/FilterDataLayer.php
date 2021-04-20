@@ -87,12 +87,24 @@ class FilterDataLayer
         $query = $this->conn->prepare("update userorgposts set approved=0 where postID=?");
         $query->execute([$postID]);
     }
+    function updateApproveAllOrgPosts($orgID){
+        $query = $this->conn->prepare("update userorgposts set approved=0 where orgID=?");
+        $query->execute([$orgID]);
+    }
     function updateEnableOrgPostApproval($orgID){
         $query = $this->conn->prepare("update orgcontentoptions set enablePostApproval=0 where orgID=?");
         $query->execute([$orgID]);
     }
     function updateDisableOrgPostApproval($orgID){
         $query = $this->conn->prepare("update orgcontentoptions set enablePostApproval=1 where orgID=?");
+        $query->execute([$orgID]);
+    }
+    function updateEnableOrgBlacklist($orgID){
+        $query = $this->conn->prepare("update orgcontentoptions set enableBlacklist=0 where orgID=?");
+        $query->execute([$orgID]);
+    }
+    function updateDisableOrgBlacklist($orgID){
+        $query = $this->conn->prepare("update orgcontentoptions set enableBlacklist=1 where orgID=?");
         $query->execute([$orgID]);
     }
 

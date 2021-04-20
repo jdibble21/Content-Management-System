@@ -42,14 +42,49 @@ function toggleOrgPostApproval(isEnabled,orgID){
     } else if(!isEnabled){
         $.ajax({
             type: "POST",
+            async: false,
             data: {
                 orgID: orgID,
             },
-            url: "/php/contentManagementSystem/Content-Management-System/src/php/adminControls/orgAdminDisablePostApproval.php",
-            success(){
-                successFunction("Disabled Post Approval!");
+            url: "/php/contentManagementSystem/Content-Management-System/src/php/dataManagement/checkForPendingPosts.php",
+            success: async function () {
+                $.ajax({
+                    url:"/php/contentManagementSystem/Content-Management-System/src/php/responseData/checkIfPendingPostsExistResponse.php",
+                    cache:false,
+                    success:function(data){
+                        if(data == "0"){
+                            alertify.confirm('Disable Post Approval', 'There are still pending posts in queue. If you disable this feature, those posts will be made public. Are you sure you want to continue?',
+                                function(){
+                                    $.ajax({
+                                        type: "POST",
+                                        data: {
+                                            orgID: orgID,
+                                        },
+                                        url: "/php/contentManagementSystem/Content-Management-System/src/php/adminControls/orgAdminDisablePostApproval.php",
+                                        success(){
+                                            successFunction("Disabled Post Approval!");
+                                        }
+                                    });
+                                },function(){
+
+                                });
+                        }else{
+                            $.ajax({
+                                type: "POST",
+                                data: {
+                                    orgID: orgID,
+                                },
+                                url: "/php/contentManagementSystem/Content-Management-System/src/php/adminControls/orgAdminDisablePostApproval.php",
+                                success(){
+                                    successFunction("Disabled Post Approval!");
+                                }
+                            });
+                        }
+                    }
+                });
             }
         });
+
     }
 }
 
