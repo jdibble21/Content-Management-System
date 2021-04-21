@@ -27,6 +27,32 @@ async function errorFunction(string,reload='reload') {
     }
 }
 
+function toggleOrgBlacklist(isEnabled,orgID){
+    if(isEnabled){
+        $.ajax({
+            type: "POST",
+            data: {
+                orgID: orgID,
+            },
+            url: "/php/contentManagementSystem/Content-Management-System/src/php/adminControls/orgAdminEnableBlacklist.php",
+            success(){
+                successFunction("Enabled Blacklist!");
+            }
+        });
+    }else if(!isEnabled){
+        $.ajax({
+            type: "POST",
+            data: {
+                orgID: orgID,
+            },
+            url: "/php/contentManagementSystem/Content-Management-System/src/php/adminControls/orgAdminDisableBlacklist.php",
+            success(){
+                successFunction("Disabled Blacklist!");
+            }
+        });
+    }
+}
+
 function toggleOrgPostApproval(isEnabled,orgID){
     if(isEnabled){
         $.ajax({

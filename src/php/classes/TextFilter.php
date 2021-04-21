@@ -20,6 +20,15 @@ class TextFilter
         return $this->dl->getOrgBlacklist($orgID);
     }
 
+    function getOrgBlacklistSettingState($orgID){
+        $blSetting = $this->dl->getOrgContentSettings($orgID);
+        $blSetting = $blSetting['enableBlacklist'];
+        if($blSetting == "0"){
+            return true;
+        }
+        return false;
+    }
+
     function checkForProfanityInWords($UserInput){
         $UserInput = strip_tags($UserInput);
         $input_array = explode(" ",$UserInput);
@@ -73,12 +82,15 @@ class TextFilter
     }
 
     function checkForProfanityOrg($UserInput, $orgID){
+        $blacklistEnabled = $this->getOrgBlacklistSettingState($orgID);
         $UserInput = strip_tags($UserInput);
         $isClean = $this->checkForProfanityInWords($UserInput);
         $input_array = explode(" ",$UserInput);
-        for ($i=0; $i < count($input_array); $i++){
-            if($this->checkOrgList($input_array[$i],$orgID) == False){
-                $isClean = False;
+        if($blacklistEnabled){
+            for ($i=0; $i < count($input_array); $i++){
+                if($this->checkOrgList($input_array[$i],$orgID) == False){
+                    $isClean = False;
+                }
             }
         }
         return $isClean;
