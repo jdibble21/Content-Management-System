@@ -23,7 +23,6 @@ function analyzeProfileImage(img){
         })
         .then(function (predictions) {
             console.log('Analyzed Image: ' + img.src, predictions)
-            //alert('Analyzed Image: ' + img.src + predictions);
             if(
                 (predictions[0].className=='Hentai' || predictions[0].className=='Porn' || predictions[0].className=='Sexy')
                 && predictions[0].probability >= 0.5
