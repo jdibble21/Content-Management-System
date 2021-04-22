@@ -92,7 +92,7 @@ function toggleOrgPostApproval(isEnabled,orgID){
                                         }
                                     });
                                 },function(){
-
+                                    document.getElementById('approvalToggle').checked = true;
                                 });
                         }else{
                             $.ajax({

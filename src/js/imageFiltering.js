@@ -15,7 +15,33 @@ function unBlurImages() {
         img.style.filter='blur(0px)';
     }
 }
-
+function analyzeProfileImage(img){
+    img.crossOrigin = "anonymous"
+    nsfwjs.load("/php/contentManagementSystem/Content-Management-System/model2/")
+        .then(function (model) {
+            return model.classify(img)
+        })
+        .then(function (predictions) {
+            console.log('Analyzed Image: ' + img.src, predictions)
+            //alert('Analyzed Image: ' + img.src + predictions);
+            if(
+                (predictions[0].className=='Hentai' || predictions[0].className=='Porn' || predictions[0].className=='Sexy')
+                && predictions[0].probability >= 0.5
+            ){
+                document.getElementById("confirmButton").textContent = "Unable to Upload";
+                //blurImage(img);
+                var editor = document.getElementById("editor");
+                editor.style.display = "none";
+                alertify.alert('Unable to Upload','Inappropriate content was found in the image file provided. Try another image or contact a moderator', function (){
+                    location.reload();
+                });
+            }else{
+                var confirmButton = document.getElementById("confirmButton");
+                confirmButton.textContent = "Confirm";
+                confirmButton.disabled = false;
+            }
+        })
+}
 function analyzeImage(){
     //alert("change detected");
     const preview = document.querySelector("[id='imageCheck']");
