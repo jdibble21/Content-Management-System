@@ -11,9 +11,15 @@ class ContentManagementLogic
         $this->tf = new TextFilter();
     }
 
-    //exposed functions to library user
-    //------------------------------------------------------------------------------------------------------------------
     //Posts
+    /**
+     * Associates a postID feed array with block value.
+     * If post is blocked, a "block" value is appended to postID, if not
+     * "safe" value is appended. Used to determine which posts to show or
+     * hide to other users.
+     * @param $updates
+     * @return updates
+     */
     public function cleanPostFeed($updates){
         $blockedPosts = $this->dl->getBlockedPosts();
         for($i = 0; $i < sizeof($updates); $i++){
@@ -31,75 +37,179 @@ class ContentManagementLogic
         }
         return $updates;
     }
+
+    /**
+     * Return predicted class and percentage of confidence for an
+     * image that is blocked
+     * @param $postID
+     * @return array
+     */
     public function getBlockedImageData($postID){
         $data = $this->dl->getBlockedImageData($postID);
         $format_value = floatval($data['blockValue'])*100;
         return [$data['blockReason'],round($format_value,2)];
     }
+
+    /**
+     * Inserts a reference to blocked image, and predicted class and
+     * percentage of confidence for the reason it was blocked.
+     * @param $postID
+     * @param $filterReason
+     * @param $filterValue
+     */
     public function addBlockedImageData($postID,$filterReason,$filterValue){
         $this->dl->insertBlockedImage([$postID,$filterReason,$filterValue]);
     }
+
+    /**
+     * Used to wipe old traces of userID rows in database on user deletion
+     * @param $userID
+     */
     public function resolveUserContentData($userID){
         $this->dl->deleteAllUserBanEntries($userID);
     }
 
     //Text Filter functions
+
+    /**
+     * Used to call TextFilter class to check a string of input for
+     * profanity. Returns True if no profanity is detected, False if profanity exists
+     * @param $input
+     * @return bool
+     */
     public function checkInputForProfanity($input){
         return $this->tf->checkForProfanityInWords($input);
     }
+
+    /**
+     * Produces an HTML table of whitelisted words for the text filter.
+     * Designed to be viewed in admin dashboard
+     */
     public function generateCurrentWhitelist(){
         $words = $this->tf->getWhitelist();
         foreach ($words as $word){
             $this->generateWhitelistWord($word);
         }
     }
+    /**
+     * Produces an HTML table of blacklisted words for the text filter.
+     * Designed to be viewed in admin dashboard
+     */
     public function generateCurrentBlacklist(){
         $words = $this->tf->getBlacklist();
         foreach ($words as $word){
             $this->generateBlacklistWord($word);
         }
     }
+
+    /**
+     * Gets whitelisted words stored in database
+     * @return array
+     */
     public function getWhitelist(){
         return $this->dl->getWhitelist();
     }
+
+    /**
+     * Gets blacklisted words stored in database
+     * @return array
+     */
     public function getBlacklist(){
         return $this->dl->getBlacklist();
     }
+
+    /**
+     * Adds a word to global whitelist
+     * @param $word
+     */
     public function addWhitelistWord($word){
         $this->dl->insertWhitelistWord($word);
     }
+
+    /**
+     * Adds a word to global blacklist
+     * @param $word
+     */
     public function addBlacklistWord($word){
         $this->dl->insertBlacklistWord($word);
     }
+
+    /**
+     * Removes a whitelisted word from global whitelist
+     * @param $word
+     */
     public function removeWhitelistWord($word){
         $this->dl->deleteWhitelistWord($word);
     }
+
+    /**
+     * Removes a blacklisted words from global blacklist
+     * @param $word
+     */
     public function removeBlacklistWord($word){
         $this->dl->deleteBlacklistWord($word);
     }
 
     //Custom Org Blacklists
+
+    /**
+     * Outputs an HTML table of custom organization blacklist.
+     * Feature has to be enabled in org settings to use this.
+     * @param $orgID
+     */
     public function generateCurrentOrgBlacklist($orgID){
         $words = $this->tf->getOrgBlacklist($orgID);
         foreach ($words as $word){
             $this->generateBlacklistWord($word);
         }
     }
+
+    /**
+     * Adds a word to be used in custom organization blacklist.
+     * Feature has to be enabled in org settings to use this
+     * @param $word
+     * @param $orgID
+     */
     public function addOrgBlacklistWord($word,$orgID){
         $this->dl->insertOrgBlacklistWord($word, $orgID);
     }
 
+    /**
+     * Modified TextFilter profanity check to make use of custom
+     * organization blacklist in addition to a normal profanity check
+     * @param $input
+     * @param $orgID
+     * @return bool
+     */
     public function checkOrgProfanity($input, $orgID){
         return $this->tf->checkForProfanityOrg($input, $orgID);
     }
 
+    /**
+     * Called when organization is created to initialize default organization
+     * settings for post approval and custom blacklist toggles
+     * @param $orgID
+     */
     public function createOrgSettings($orgID){
         $this->dl->insertOrgSettings($orgID);
     }
+
+    /**
+     * Returns organization settings for post approval and custom blacklist
+     * @param $orgID
+     * @return array
+     */
     public function getOrgContentSettings($orgID){
         $settings = $this->dl->getOrgContentSettings($orgID);
         return [$settings['enablePostApproval'],$settings['enableBlacklist']];
     }
+
+    /**
+     * Used for determining whether or not a 'pending' value should be applied to
+     * a user post to org page
+     * @param $orgID
+     * @return bool
+     */
     public function checkOrgApprovalEnabled($orgID){
         $enabled = $this->dl->getOrgContentSettings($orgID);
         if($enabled['enablePostApproval'] == "0"){
@@ -108,30 +218,77 @@ class ContentManagementLogic
             return false;
         }
     }
+
+    /**
+     * Toggles on post approval for organizations. Activating this requires user's posts
+     * to be approved by org admin before publicly viewable
+     * @param $orgID
+     */
     public function enableOrgPostApproval($orgID){
         $this->dl->updateEnableOrgPostApproval($orgID);
     }
+
+    /**
+     * Toggles off post approval for organizations. Activating this approves all currently
+     * pending posts, and removes need for posts to be approved before public view
+     * @param $orgID
+     */
     public function disableOrgPostApproval($orgID){
         $this->dl->updateDisableOrgPostApproval($orgID);
         $this->dl->updateApproveAllOrgPosts($orgID);
     }
+
+    /**
+     * Toggles on custom blacklist. Will check uploaded content against a custom blacklist
+     * @param $orgID
+     */
     public function enableOrgBlacklist($orgID){
         $this->dl->updateEnableOrgBlacklist($orgID);
     }
+
+    /**
+     * Toggles off custom blacklist. Will not check uploaded content against blacklist
+     * @param $orgID
+     */
     public function disableOrgBlacklist($orgID){
         $this->dl->updateDisableOrgBlacklist($orgID);
     }
    //Blocked posts and related functions
+
+    /**
+     * Used when profanity or inapropriate content is found in a post. Will show up
+     * in admin dashboard to be handled
+     * @param $postID
+     * @param $blockReason
+     * @return string
+     */
     public function createBlockMessage($postID,$blockReason){
         $this->addBlockedPostReference($postID);
         return $this->dl->insertBlockMessage([$blockReason,$postID,"No resolution yet","No appeal"]);
     }
+
+    /**
+     * Returns all blocked messages for blocked posts to be handled by super admin
+     * @return array
+     */
     public function getBlockMessages(){
         return $this->getBlocks();
     }
+
+    /**
+     * Returns some content of a deleted post for reference in resolved block messages
+     * @param $postID
+     * @return mixed
+     */
     public function getDeletedPost($postID){
         return $this->dl->getDeletedPost($postID);
     }
+
+    /**
+     * Updates block message to resolved status, meaning post has been allowed, or deleted by user or admin
+     * @param $msgID
+     * @param $description
+     */
     public function resolveBlockMessage($msgID,$description){
         $this->dl->updateResolveBlockMessage([0,$description,$msgID]);
     }
@@ -247,8 +404,6 @@ class ContentManagementLogic
         return $this->dl->getResolvedBlockMessageByID($msgID);
     }
 
-
-
     //blocking
     protected function getBlockPosts(){
         return $this->dl->getBlockedPosts();
@@ -258,27 +413,7 @@ class ContentManagementLogic
         return $this->dl->getBlockMessages();
     }
 
-    protected function checkBlockedPosts($standardPostsObject){
-        $blockedPostArray = $this->getBlockPosts();
-        $blockValue = $this->getArrayValue($standardPostsObject['postID'],$blockedPostArray);
-        $modifiedPost = $this->appendBlockValue($standardPostsObject,$blockValue);
-        array_push($modifiedArray,$modifiedPost);
 
-        return $modifiedArray;
-    }
-    protected function getArrayValue($postIDToGet,$objectArray){
-        foreach($objectArray as $object){
-            if($postIDToGet == $object['postID']){
-                return $object['blockStatus'];
-            }
-        }
-        return null;
-    }
-
-    protected function appendBlockValue($post,$value){
-        $post['blockStatus'] = $value;
-        return $post;
-    }
 
     //whitelist and blacklist
     protected function generateWhitelistWord(array $wordData){

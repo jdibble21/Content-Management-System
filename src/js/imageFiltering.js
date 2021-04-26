@@ -27,8 +27,6 @@ function analyzeProfileImage(img){
                 (predictions[0].className=='Hentai' || predictions[0].className=='Porn' || predictions[0].className=='Sexy')
                 && predictions[0].probability >= 0.5
             ){
-                document.getElementById("confirmButton").textContent = "Unable to Upload";
-                //blurImage(img);
                 var editor = document.getElementById("editor");
                 editor.style.display = "none";
                 alertify.alert('Unable to Upload','Inappropriate content was found in the image file provided. Try another image or contact a moderator', function (){
