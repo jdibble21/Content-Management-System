@@ -50,7 +50,7 @@ CREATE TABLE `bannedorgusers` (
 );
 DROP TABLE IF EXISTS `userorgposts`;
 CREATE TABLE `userorgposts` (
-                                `postID` INT NOT NULL ,
+                                `postID` INT PRIMARY KEY NOT NULL ,
                                 `userID` INT NOT NULL ,
                                 `orgID` INT NOT NULL,
                                 `approved` TINYINT NOT NULL DEFAULT '1'
@@ -80,4 +80,4 @@ CREATE TABLE `orgcontentoptions` (
                                   `orgID` int(11) NOT NULL primary key,
                                   `enablePostApproval` int(11) NOT NULL DEFAULT 1,
                                   `enableBlacklist` int(11) NOT NULL DEFAULT 1
-)
+);

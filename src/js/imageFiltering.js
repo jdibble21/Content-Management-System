@@ -4,7 +4,7 @@ function blurImages() {
     for (let i = 0; i < imgArray.length; i++) {
         const img = imgArray[i]
         img.crossOrigin = "anonymous"
-        img.style.filter='blur(30px)';
+        img.style.filter='blur(20px)';
     }
 }
 function unBlurImages() {

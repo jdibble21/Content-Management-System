@@ -200,6 +200,7 @@ class ContentManagementLogic
      * @return array
      */
     public function getOrgContentSettings($orgID){
+        $this->createOrgSettings($orgID);
         $settings = $this->dl->getOrgContentSettings($orgID);
         return [$settings['enablePostApproval'],$settings['enableBlacklist']];
     }
@@ -225,7 +226,14 @@ class ContentManagementLogic
      * @param $orgID
      */
     public function enableOrgPostApproval($orgID){
-        $this->dl->updateEnableOrgPostApproval($orgID);
+        //$this->createOrgSettings($orgID);
+        //echo $this->dl->updateEnableOrgPostApproval($orgID);
+        if($this->dl->updateEnableOrgPostApproval($orgID)){
+            $this->createOrgSettings($orgID);
+            $this->dl->updateEnableOrgPostApproval($orgID);
+        }else{
+
+        }
     }
 
     /**
@@ -243,7 +251,10 @@ class ContentManagementLogic
      * @param $orgID
      */
     public function enableOrgBlacklist($orgID){
-        $this->dl->updateEnableOrgBlacklist($orgID);
+        if($this->dl->updateEnableOrgBlacklist($orgID)){
+            $this->createOrgSettings($orgID);
+            $this->dl->updateEnableOrgBlacklist($orgID);
+        }
     }
 
     /**

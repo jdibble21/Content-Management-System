@@ -82,6 +82,7 @@ class TextFilter
     }
 
     function checkForProfanityOrg($UserInput, $orgID){
+        $this->dl->insertOrgSettings($orgID);
         $blacklistEnabled = $this->getOrgBlacklistSettingState($orgID);
         $UserInput = strip_tags($UserInput);
         $isClean = $this->checkForProfanityInWords($UserInput);

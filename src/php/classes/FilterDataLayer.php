@@ -28,7 +28,7 @@ class FilterDataLayer
     }
     //insert
     function insertOrgSettings($orgID){
-        $query = $this->conn->prepare("insert into orgcontentoptions (orgID) values (?)");
+        $query = $this->conn->prepare("insert ignore into orgcontentoptions (orgID) values (?)");
         $query->execute([$orgID]);
     }
     public function insertBlockedImage(array $imgData){
@@ -40,7 +40,7 @@ class FilterDataLayer
         $query->execute([$postID]);
     }
     function insertUserPostToOrg(array $postData){
-        $query = $this->conn->prepare("insert into userorgposts (postID, userID, orgID, approved) values (?,?,?,?)");
+        $query = $this->conn->prepare("insert ignore into userorgposts (postID, userID, orgID, approved) values (?,?,?,?)");
         $query->execute($postData);
     }
     function insertBlockMessage(array $msgData){
@@ -93,19 +93,19 @@ class FilterDataLayer
     }
     function updateEnableOrgPostApproval($orgID){
         $query = $this->conn->prepare("update orgcontentoptions set enablePostApproval=0 where orgID=?");
-        $query->execute([$orgID]);
+        return $query->execute([$orgID]);
     }
     function updateDisableOrgPostApproval($orgID){
         $query = $this->conn->prepare("update orgcontentoptions set enablePostApproval=1 where orgID=?");
-        $query->execute([$orgID]);
+        return $query->execute([$orgID]);
     }
     function updateEnableOrgBlacklist($orgID){
         $query = $this->conn->prepare("update orgcontentoptions set enableBlacklist=0 where orgID=?");
-        $query->execute([$orgID]);
+        return $query->execute([$orgID]);
     }
     function updateDisableOrgBlacklist($orgID){
         $query = $this->conn->prepare("update orgcontentoptions set enableBlacklist=1 where orgID=?");
-        $query->execute([$orgID]);
+        return $query->execute([$orgID]);
     }
 
     //select
