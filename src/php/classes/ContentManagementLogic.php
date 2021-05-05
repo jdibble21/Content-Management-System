@@ -226,8 +226,6 @@ class ContentManagementLogic
      * @param $orgID
      */
     public function enableOrgPostApproval($orgID){
-        //$this->createOrgSettings($orgID);
-        //echo $this->dl->updateEnableOrgPostApproval($orgID);
         if($this->dl->updateEnableOrgPostApproval($orgID)){
             $this->createOrgSettings($orgID);
             $this->dl->updateEnableOrgPostApproval($orgID);

@@ -16,6 +16,9 @@ function unBlurImages() {
     }
 }
 function analyzeProfileImage(img){
+    var confirmButton = document.getElementById("confirmButton");
+    confirmButton.textContent = 'Checking Image...';
+    confirmButton.disabled = true;
     img.crossOrigin = "anonymous"
     nsfwjs.load("/php/contentManagementSystem/Content-Management-System/model2/")
         .then(function (model) {
@@ -33,7 +36,6 @@ function analyzeProfileImage(img){
                     location.reload();
                 });
             }else{
-                var confirmButton = document.getElementById("confirmButton");
                 confirmButton.textContent = "Confirm";
                 confirmButton.disabled = false;
             }
